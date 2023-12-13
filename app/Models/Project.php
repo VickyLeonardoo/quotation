@@ -14,4 +14,8 @@ class Project extends Model
     public function quotation(){
         return $this->belongsTo(Quotation::class);
     }
+
+    public function logbook(){
+        return $this->hasMany(Logbook::class);
+    }
 }

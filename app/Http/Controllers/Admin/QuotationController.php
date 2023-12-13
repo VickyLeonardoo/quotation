@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Cv;
 use Carbon\Carbon;
 use App\Models\Produk;
+use App\Models\Project;
 use App\Models\Quotation;
 use App\Models\Perusahaan;
 use Illuminate\Http\Request;
@@ -112,8 +113,14 @@ class QuotationController extends Controller
         $qto->update([
             'status' => '1',
         ]);
-        return redirect()->back()->with('success','Quotation berhasil dikonfirmasi');
+        $project = Project::create([
+            'quotation_id' => $id,
+        ]);
+        return redirect()->route('admin.project.ongoing.edit',$project->id)->with('success','Project Berhasil Dibuat, Lengkapi Formulir Project yang Tersedia');
+        // return redirect()->back()->with('success','Quotation berhasil dikonfirmasi');
     }
+
+
 
     public function doneQto($id){
         $qto = Quotation::findOrFail($id);

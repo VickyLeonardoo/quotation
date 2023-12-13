@@ -14,7 +14,7 @@
                         </div>
                         <div class="card-category"></div>
                     </div>
-                    <form action="{{ route('admin.invoice.draft.store') }}" method="POST">
+                    <form action="{{ route('admin.delivery.draft.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             @if (session('error'))
@@ -22,11 +22,11 @@
                                {{ session('error') }}
                             </div>
                             @endif
-                            <label for="">Quotation No</label>
-                            <select name="quotation_id" class="form-control selectpicker" data-live-search="true">
-                                @foreach ($quotations as $qto)
-                                    <option value="{{ $qto->id }}">{{ $qto->quotationNo }} |
-                                        {{ $qto->perusahaan->nama }}</option>
+                            <label for="">Invoice No</label>
+                            <select name="invoice_id" class="form-control selectpicker" data-live-search="true">
+                                @foreach ($invoices as $inv)
+                                    <option value="{{ $inv->id }}">{{ $inv->quotation->quotationNo }} |
+                                        {{ $inv->quotation->perusahaan->nama }} | {{ $inv->invoiceNo }}</option>
                                 @endforeach
                             </select>
                             @error('quotation_id')
@@ -34,25 +34,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="">Invoice No</label>
-                            <input type="text" readonly class="form-control" name="invoiceNo"
-                                value="{{ $invoiceNo }}">
+                            <label for="">Delivery No</label>
+                            <input type="text" readonly class="form-control" name="deliveryNo" value="{{ $deliveryNo }}">
                         </div>
                         <div class="form-group">
                             <label for="">Tanggal</label>
-                            <input type="text" class="form-control {{ $errors->has('tglInvoice') ? 'is-invalid':'' }}" name="tglInvoice" placeholder="Masukkan Tanggal" onfocus="(this.type='date')"onblur="(this.type='text')" value="{{ old('tglInvoice')}}">
-                            @error('tglInvoice')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">Batas Pembayaran</label>
-                            <select name="payment_due" class="form-control">
-                                <option value="15">15 Hari</option>
-                                <option value="30">30 Hari</option>
-                                <option value="45">45 Hari</option>
-                            </select>
-                            @error('payment_due')
+                            <input type="text" class="form-control {{ $errors->has('tglDelivery') ? 'is-invalid':'' }}" name="tglDelivery" placeholder="Masukkan Tanggal" onfocus="(this.type='date')"onblur="(this.type='text')" value="{{ old('tglDelivery')}}">
+                            @error('tglDelivery')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>

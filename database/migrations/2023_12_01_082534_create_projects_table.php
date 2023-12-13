@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('nama')->nullable();
             $table->text('deskripsi')->nullable();
             $table->foreignId('quotation_id')->references('id')->on('quotations');
-            $table->enum('status',['0','1'])->default('0');
+            $table->enum('status',['0','1'])->default('0')->comment('0 = Berjalan, 1 = Selesai');
+            $table->date('tglMulai')->nullable();
+            $table->date('tglSelesai')->nullable();
             $table->boolean('is_archive')->default(false);
             $table->timestamps();
         });

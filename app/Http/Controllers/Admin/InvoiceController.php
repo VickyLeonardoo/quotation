@@ -58,19 +58,19 @@ class InvoiceController extends Controller
             'tglInvoice.required' => 'Tanggal invoice wajib diisi',
             'payment_due.required' => 'Batas pembayaran wajib diisi',
         ]);
+        $tglInvoice = Carbon::parse($validatedData['tglInvoice']);
+        $paymentDue = $tglInvoice->addDays($request->payment_due);
+        $validatedData['payment_due'] = $paymentDue;
+        $qto = Quotation::findOrFail($qtoId);
 
-        $qtoFind = Invoice::where('quotation_id',$qtoId)->first();
-        $invoiceNo = $qtoFind->invoiceNo;
-        if (!$qtoFind) {
-            $tglInvoice = Carbon::parse($validatedData['tglInvoice']);
-            $paymentDue = $tglInvoice->addDays($request->payment_due);
-            $validatedData['payment_due'] = $paymentDue;
-
-            Quotation::where('id',$qtoId)->update(['is_invoice' => true]);
-            Invoice::create($validatedData);
-            return redirect()->route('admin.invoice.draft')->with('success','Invoice berhasil dibuat');
+        if ($qto->is_invoice == true) {
+            return redirect()->back()->with('error','Invoice untuk quotation sudah ada, Periksa invoice '.$qto->invoice->invoiceNo);
         }else{
-            return redirect()->back()->with('error','Invoice untuk quotation sudah ada, Periksa invoice '.$invoiceNo);
+            Invoice::create($validatedData);
+            $qto->update([
+                'is_invoice' => true
+            ]);
+            return redirect()->route('admin.invoice.draft')->with('success','Invoice berhasil dibuat');
         }
     }
 

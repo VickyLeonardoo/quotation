@@ -32,7 +32,7 @@ class LoginController extends Controller
             if ($user->role == '1') {
                 return redirect()->route('admin.dashboard')->with('message','Berhasil');
             }else if($user->role == '2'){
-                return redirect()->route('admin')->with('message','Selamat Datang!');
+                return redirect()->route('karyawan.dashboard')->with('message','Selamat Datang!');
             }
         }
         return redirect()->back()->with('error','Maaf Username atau Password kamu Salah');

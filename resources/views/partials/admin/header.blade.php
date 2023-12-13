@@ -66,8 +66,13 @@
 								Invoice
 							</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">
+                        <li class="nav-item {{ Route::is('admin.project*') ? 'active':''}}">
+							<a class="nav-link" href="{{ url('admin/project') }}">
+								Project
+							</a>
+						</li>
+						<li class="nav-item {{ Route::is('admin.delivery*') ? 'active':''}}">
+							<a class="nav-link" href="{{ url('admin/delivery') }}">
 								Delivery Order
 							</a>
 						</li>
