@@ -30,7 +30,7 @@
 		<div class="logo-header position-fixed" data-background-color="dark">
 
 			<a href="index.html" class="logo">
-				<img src="{{ asset('atlantis') }}/assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
+				<img src="/assets/gmp.png" alt="navbar brand" class="navbar-brand">
 			</a>
 			<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon">
@@ -87,7 +87,7 @@
 					<li class="nav-item dropdown hidden-caret">
 						<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
 							<div class="avatar-sm">
-								<img src="{{ asset('atlantis') }}/assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+								<img src="/atlantis/assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
 							</div>
 						</a>
 						<ul class="dropdown-menu dropdown-user animated fadeIn">

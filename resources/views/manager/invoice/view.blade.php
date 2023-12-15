@@ -15,6 +15,9 @@
                 <a href="{{ route('manager.invoice.set.accepted',$inv->id) }}" class="btn btn-secondary ml-2">
                     Approve
                 </a>
+                <a href="{{ route('manager.invoice.set.reject',$inv->id) }}" class="btn btn-danger ml-2">
+                    Reject
+                </a>
                 @endif
                 <a href="{{ route('manager.invoice.print',$inv->id) }}" target="_blank" class="btn btn-primary ml-2">
                    <i class="fas fa-print"></i> Print

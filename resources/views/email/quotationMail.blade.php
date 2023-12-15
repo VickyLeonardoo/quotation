@@ -320,7 +320,5 @@
 
 
 </body>
-<script>
-    window.addEventListener("load", window.print());
-</script>
+
 </html>

@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Cv;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Invoice;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\ApprovalMailInv;
+use Illuminate\Support\Facades\Mail;
 
 class InvoiceController extends Controller
 {
@@ -17,7 +20,7 @@ class InvoiceController extends Controller
 
     public function showDraft(){
         return view('admin.invoice.viewInv',[
-            'invoices' => Invoice::whereIn('status',['0','1','2'])->where('is_archive',0)->get(),
+            'invoices' => Invoice::whereIn('status',['0','1','2','5'])->where('is_archive',0)->get(),
         ]);
     }
 
@@ -89,9 +92,13 @@ class InvoiceController extends Controller
     }
 
     public function pendingInv(Invoice $id){
+        $user = User::where('role','3')->first();
+        $email = 'manager@example.com';
+
         $id->update([
             'status' => '1'
         ]);
+        Mail::to($email)->send(new ApprovalMailInv($id));
         return redirect()->route('admin.invoice.draft')->with('success','Invoice berhasil dikonfirmasi');
     }
 
@@ -110,4 +117,23 @@ class InvoiceController extends Controller
         ]);
         return redirect()->route('admin.invoice.confirmed')->with('success','Invoice berhasil diselesaikan');
     }
+
+    public function destroy(Invoice $id){
+        try {
+            if ($id->status == 1) {
+                return redirect()->back()->with('error', 'Pending Invoice tidak dapat dihapus. Silahkan set draft terlebih dahulu.');
+            } else {
+                $id->delete();
+                return redirect()->back()->with('success', 'Quotation berhasil dihapus');
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+
+            if ($errorCode == 1451) { // Cek apakah kesalahan terkait foreign key constraint
+                return redirect()->back()->with('error', 'Quotation tidak dapat dihapus karena masih terdapat referensi di tabel lain.');
+            }
+            throw $e;
+        }
+    }
+
 }

@@ -34,7 +34,7 @@ use App\Http\Controllers\Manager\ManagerQuotationController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -94,10 +94,11 @@ Route::group(['middleware' => ['auth:user']], function () {
                 //Print
                 Route::get('/quotation/{id}/print', 'print')->name('admin.quotation.print');
                 //Kirim Email
-                Route::get('/quotation/{id}/email', 'emailcustomer')->name('admin.quotation.email');
+                // Route::get('/quotation/{id}/email', 'emailcustomer')->name('admin.quotation.email');
 
                 Route::get('/quotation/{id}/edit', 'edit')->name('admin.quotation.edit');
                 Route::get('/quotation/{id}/delete' ,'destroy')->name('admin.quotation.delete');
+                Route::get('/quotation/{id}/mail', 'sendQuotationMail')->name('admin.quotation.email');
                 //End Draft Quotation
             });
 
@@ -114,6 +115,8 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/invoice/{id}/print', 'print')->name('admin.invoice.print');
                 Route::get('/invoice-confirmed', 'showConf')->name('admin.invoice.confirmed');
                 Route::get('/invoice-draft/{id}/selesai', 'doneInv')->name('admin.invoice.set.selesai');
+                Route::get('/invoice-draft/{id}/delete', 'destroy')->name('admin.invoice.delete');
+
             });
 
             Route::controller(ProjectController::class)->group(function () {
@@ -194,6 +197,8 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/invoice-draft/{id}/accepted', 'acceptedInv')->name('manager.invoice.set.accepted');
                 Route::get('/invoice/{id}/print', 'print')->name('manager.invoice.print');
                 Route::get('/invoice-confirmed', 'showConf')->name('manager.invoice.confirmed');
+                Route::get('/invoice-draft/{id}/tolak', 'rejectInv')->name('manager.invoice.set.reject');
+
             });
 
             Route::controller(ManagerProjectController::class)->group(function () {

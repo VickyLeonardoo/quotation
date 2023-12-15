@@ -47,4 +47,12 @@ class ManagerInvoiceController extends Controller
         ]);
         return redirect()->route('manager.invoice.draft')->with('success','Invoice berhasil dikonfirmasi');
     }
+
+    public function rejectInv(Invoice $id){
+        $id->update([
+            'status' => '5'
+        ]);
+        return redirect()->route('manager.invoice.draft')->with('success','Invoice berhasil ditolak');
+    }
+
 }

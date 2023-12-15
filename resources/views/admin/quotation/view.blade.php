@@ -24,11 +24,11 @@
                 <h4 class="page-title">Quotation #{{ $qto->quotationNo }}</h4>
             </div>
             <div class="col-auto">
-                @if ($qto->is_email == false && $qto->status == 2)
+                {{-- @if ($qto->is_email == false && $qto->status == 2) --}}
                 <a href="{{ route('admin.quotation.email',$qto->id) }}" class="btn btn-info ml-2">
                     <i class="fas fa-envelope"></i> Email
                 </a>
-                @endif
+                {{-- @endif --}}
                 @if ($qto->status == 0)
                 <a href="{{ route('admin.quotation.set.pending',$qto->id) }}" class="btn btn-secondary ml-2">
                     Set Pending

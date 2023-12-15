@@ -4,12 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Cv;
 use Carbon\Carbon;
+use Dompdf\Dompdf;
+use App\Models\User;
+// use \Mpdf\Mpdf as PDF;
+// use Barryvdh\DomPDF\PDF;
 use App\Models\Produk;
 use App\Models\Project;
+use Barryvdh\DomPDF\PDF;
 use App\Models\Quotation;
+use App\Mail\ApprovalMail;
+// use Barryvdh\DomPDF\PDF;
 use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 
 class QuotationController extends Controller
 {
@@ -109,10 +118,14 @@ class QuotationController extends Controller
     }
 
     public function pendingQto($id){
+        $user = User::where('role','3')->first();
+        // $email = $user->email;
+        $email = 'manager@example.com';
         $qto = Quotation::findOrFail($id);
         $qto->update([
             'status' => '1',
         ]);
+        Mail::to($email)->send(new ApprovalMail($qto));
         return redirect()->back()->with('success','Quotation berhasil set ke pending');
     }
 
@@ -157,4 +170,46 @@ class QuotationController extends Controller
         }
     }
 
+    public function sendQuotationMail($id){
+        $image = base64_encode(file_get_contents(public_path('/assets/gmp.png')));
+        // Generate PDF from Blade template
+        $qto = Quotation::find($id);
+        $quotationNo = $qto->quotationNo;
+        $total = $qto->total;
+        // $terbilang = Helper::terbilang($total);
+
+        // $pdf = PDF::loadview('email.quotationMail', ['qto' => $qto]);
+        // return $pdf->download('quotation-download.pdf');
+
+        $dompdf = new Dompdf();
+        $html = view('email.quotationMail', ['qto' => $qto, 'img' => $image])->render();
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+        $output = $dompdf->output();
+        // Save PDF to temporary file
+        $pdfPath = public_path('QuotationMitra.pdf');
+        file_put_contents($pdfPath, $output);
+
+        // Send email with the PDF attachment
+        $email = 'admin@example.com'; // Email recipient
+        Mail::send('email.text', [], function ($message) use ($email, $pdfPath, $qto) {
+            $message->to($email)
+                ->subject('Quotation For Project XXX')
+                ->attach($pdfPath);
+        });
+
+        // Delete the temporary PDF file
+        unlink($pdfPath);
+        $qto->update([
+            'is_email' => true,
+        ]);
+        return redirect()->back()->withToastSuccess('Email Berhasil Dikirim');
+    }
+
+    // public function sendQuotationMail($id){
+    //         // Generate PDF from Blade template
+    //     $qto = Quotation::find($id);
+    //     $pdf = PDF::loadView('email.quotationMail', ['qto'=>$qto]);
+    //     return $pdf->stream('document.pdf');
+    // }
 }
