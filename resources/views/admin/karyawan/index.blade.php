@@ -24,16 +24,20 @@
                             </thead>
                             <tbody>
                                 @foreach ($karyawans as $karyawan)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $karyawan->name }}</td>
-                                    <td>{{ $karyawan->email }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.karyawan.edit',$karyawan->slug)}}" class="btn btn-sm btn-info"><i class="fas fa-edit"></i>Edit</a>
-                                        <button type="button" class="btn btn-sm btn-warning" id="alertResetPassword_{{ $karyawan->id }}"><i class="fas fa-key"></i> Reset Password</button>
-                                        <button type="button" class="btn btn-sm btn-danger" id="alert_demo_8"><i class="fas fa-trash"></i> Hapus</button>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $karyawan->name }}</td>
+                                        <td>{{ $karyawan->email }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.karyawan.edit', $karyawan->slug) }}"
+                                                class="btn btn-sm btn-info"><i class="fas fa-edit"></i>Edit</a>
+                                            <button type="button" class="btn btn-sm btn-warning"
+                                                id="alertResetPassword_{{ $karyawan->id }}"><i class="fas fa-key"></i> Reset
+                                                Password</button>
+                                            <button type="button" class="btn btn-sm btn-danger" id="alertDeleteAccount_{{ $karyawan->id }}"><i
+                                                    class="fas fa-trash"></i> Hapus</button>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -64,11 +68,35 @@
                     }
                 }).then((willDelete) => {
                     if (willDelete) {
-                        window.location.href = '{{ route('admin.karyawan.reset', ['id' => $karyawan->id]) }}';
+                        window.location.href =
+                            '{{ route('admin.karyawan.reset', ['id' => $karyawan->id]) }}';
                     }
                 });
             });
-@endforeach
 
+            $('#alertDeleteAccount_{{ $karyawan->id }}').click(function(e) {
+                swal({
+                    title: 'Nonaktifkan Akun?',
+                    text: "Akun akan menjadi nonaktif.",
+                    type: 'warning',
+                    buttons: {
+                        cancel: {
+                            visible: true,
+                            text: 'Tidak, Batal!',
+                            className: 'btn btn-danger'
+                        },
+                        confirm: {
+                            text: 'Ya, Nonaktifkan!',
+                            className: 'btn btn-success'
+                        }
+                    }
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        window.location.href =
+                            '{{ route('admin.karyawan.delete', ['id' => $karyawan->id]) }}';
+                    }
+                });
+            });
+        @endforeach
     </script>
 @endsection

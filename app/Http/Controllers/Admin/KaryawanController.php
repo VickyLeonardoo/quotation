@@ -55,4 +55,11 @@ class KaryawanController extends Controller
         ]);
         return redirect()->back()->with('success','Berhasil reset password karyawan');
     }
+
+    public function destroy(User $id){
+        $id->update([
+            'is_active' => '0'
+        ]);
+        return redirect()->back()->with('success','Karyawan berhasil dinonaktifkan');
+    }
 }

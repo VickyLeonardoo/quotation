@@ -19,13 +19,13 @@ class QuotationController extends Controller
 
     public function showDraft(){
         return view('admin.quotation.qtoDraft',[
-            'quotations' => Quotation::where('status','0')->where('is_archive','0')->get(),
+            'quotations' => Quotation::whereIn('status',['0','1','5'])->where('is_archive','0')->get(),
         ]);
     }
 
     public function showConf(){
         return view('admin.quotation.qtoDraft',[
-            'quotations' => Quotation::where('status','1')->where('is_archive','0')->get(),
+            'quotations' => Quotation::where('status','3')->where('is_archive','0')->get(),
         ]);
     }
 
@@ -108,19 +108,24 @@ class QuotationController extends Controller
         return redirect()->back()->with('success','Email berhasil dikirim kepada customer');
     }
 
-    public function confirmQto($id){
+    public function pendingQto($id){
         $qto = Quotation::findOrFail($id);
         $qto->update([
             'status' => '1',
+        ]);
+        return redirect()->back()->with('success','Quotation berhasil set ke pending');
+    }
+
+    public function confirmQto($id){
+        $qto = Quotation::findOrFail($id);
+        $qto->update([
+            'status' => '3',
         ]);
         $project = Project::create([
             'quotation_id' => $id,
         ]);
         return redirect()->route('admin.project.ongoing.edit',$project->id)->with('success','Project Berhasil Dibuat, Lengkapi Formulir Project yang Tersedia');
-        // return redirect()->back()->with('success','Quotation berhasil dikonfirmasi');
     }
-
-
 
     public function doneQto($id){
         $qto = Quotation::findOrFail($id);
@@ -129,4 +134,27 @@ class QuotationController extends Controller
         ]);
         return redirect()->back()->with('success','Status Quotation berhasil menjadi Selesai');
     }
+
+    public function edit(Quotation $id){
+
+    }
+
+    public function destroy(Quotation $id){
+        try {
+            if ($id->status == 1) {
+                return redirect()->back()->with('error', 'Pending Quotation tidak dapat dihapus. Silahkan set draft terlebih dahulu.');
+            } else {
+                $id->delete();
+                return redirect()->back()->with('success', 'Quotation berhasil dihapus');
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+
+            if ($errorCode == 1451) { // Cek apakah kesalahan terkait foreign key constraint
+                return redirect()->back()->with('error', 'Quotation tidak dapat dihapus karena masih terdapat referensi di tabel lain.');
+            }
+            throw $e;
+        }
+    }
+
 }

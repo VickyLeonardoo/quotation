@@ -5,6 +5,14 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
+            @if (session('error'))
+            <div class="alert alert-warning bg-danger alert-dismissible fade show text-white" role="alert">
+                <button type="button" class="pull-right bg-danger" style="border: none;" data-dismiss="alert" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+                {{ session('error') }}
+            </div>
+            @endif
             <div class="card full-height">
                 <div class="card-body">
                     <div class="container-fluid">

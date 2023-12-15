@@ -24,7 +24,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid':'' }}" name="email" placeholder="Masukkan Email Karyawan" value="{{ old('email') }}">
+                            <input type="text" class="form-control {{ $errors->has('email') ? 'is-invalid':'' }}" name="email" placeholder="Masukkan Email Karyawan" value="{{ old('email') }}">
                             @error('email')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

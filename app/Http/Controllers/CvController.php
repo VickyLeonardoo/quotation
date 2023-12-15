@@ -1,18 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Models\Cv;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class CvController extends Controller
 {
     public function show(){
         $cv = Cv::first();
-        return view('admin.cv.index',[
-            'cv' => $cv,
-        ]);
+        if (auth()->user()->role == 1) {
+            return view('admin.cv.index',[
+                'cv' => $cv,
+            ]);
+        }else{
+            return view('manager.cv.index',[
+                'cv' => $cv,
+            ]);
+        }
     }
 
     public function update(Request $request){

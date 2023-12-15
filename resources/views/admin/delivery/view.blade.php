@@ -1,5 +1,5 @@
 @extends('partials.admin.header')
-@section('title','View Invoice')
+@section('title','View Delivery Order')
 @section('content')
 <div class="row">
     <div class="col-9 col-lg-10 col-xl-9">
@@ -8,10 +8,10 @@
                 <h6 class="page-pretitle">
                     Invoices
                 </h6>
-                <h4 class="page-title">Invoice #{{ $inv->invoiceNo }}</h4>
+                <h4 class="page-title">Invoice #{{ $do->deliveryNo }}</h4>
             </div>
             <div class="col-auto">
-                @if ($inv->status == 0)
+                {{-- @if ($inv->status == 0)
                 <a href="{{ route('admin.invoice.set.confirm',$inv->id) }}" class="btn btn-secondary ml-2">
                     Konfirmasi
                 </a>
@@ -19,11 +19,10 @@
                 <a href="{{ route('admin.invoice.set.selesai',$inv->id) }}" class="btn btn-success ml-2">
                     Selesai
                 </a>
-                @endif
-                <a href="{{ route('admin.invoice.print',$inv->id) }}" target="_blank" class="btn btn-primary ml-2">
+                @endif --}}
+                <a href="{{ route('admin.invoice.print',$do->id) }}" target="_blank" class="btn btn-primary ml-2">
                    <i class="fas fa-print"></i> Print
                 </a>
-
             </div>
         </div>
         <div class="page-divider"></div>
@@ -33,7 +32,7 @@
                     <div class="card-header">
                         <div class="invoice-header">
                             <h3 class="invoice-title">
-                                Quotation
+                                Delivery Order
                             </h3>
                             <div class="invoice-logo">
                                 {{-- <img src="../assets/img/examples/logoinvoice.svg" alt="company logo"> --}}
@@ -52,18 +51,18 @@
                         <div class="row">
                             <div class="col-md-4 info-invoice">
                                 <h5 class="sub">Date</h5>
-                                <p>{{ Carbon\Carbon::parse($inv->tglInvoice)->isoFormat('d MMMM Y') }}</p>
+                                <p>{{ Carbon\Carbon::parse($do->tglDelivery)->isoFormat('d MMMM Y') }}</p>
                             </div>
                             <div class="col-md-4 info-invoice">
                                 <h5 class="sub">Invoice No</h5>
-                                <p>{{ $inv->invoiceNo }}</p>
+                                <p>{{ $do->invoice->invoiceNo }}</p>
                             </div>
                             <div class="col-md-4 info-invoice">
-                                <h5 class="sub">Invoice To</h5>
+                                <h5 class="sub">Shipping To</h5>
                                 <p>
-                                    {{ $inv->quotation->perusahaan->pic }}, {{ $inv->quotation->perusahaan->nama }}<br/>
-                                    {{ $inv->quotation->perusahaan->alamat }}, <br/>
-                                    {{ $inv->quotation->perusahaan->jalan1 }}
+                                    {{ $do->invoice->quotation->perusahaan->pic }}, {{ $do->invoice->quotation->perusahaan->nama }}<br/>
+                                    {{ $do->invoice->quotation->perusahaan->alamat }}, <br/>
+                                    {{ $do->invoice->quotation->perusahaan->jalan1 }}
                                 </p>
                             </div>
                         </div>
@@ -71,7 +70,7 @@
                             <div class="col-md-12">
                                 <div class="invoice-detail">
                                     <div class="invoice-top">
-                                        <h3 class="title"><strong>Order summary</strong></h3>
+                                        <h3 class="title"><strong>Item</strong></h3>
                                     </div>
                                     <div class="invoice-item">
                                         <div class="table-responsive">
@@ -85,7 +84,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($inv->quotation->produk as $data)
+                                                    @foreach ($do->invoice->quotation->produk as $data)
                                                     <tr>
                                                         <td>{{ $data->namaProduk }}</td>
                                                         <td class="text-center">@currency($data->pivot->harga) </td>
@@ -97,7 +96,7 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td class="text-center"><strong>Total</strong></td>
-                                                        <td class="text-right">@currency($inv->quotation->total)</td>
+                                                        <td class="text-right">@currency($do->invoice->quotation->total)</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -111,11 +110,11 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-sm-7 col-md-5 mb-3 mb-md-0 transfer-to">
-                                <h5 class="sub">{{ Riskihajar\Terbilang\Facades\Terbilang::make($inv->quotation->total) }}</h5>
+                                <h5 class="sub">{{ Riskihajar\Terbilang\Facades\Terbilang::make($do->invoice->quotation->total) }}</h5>
                             </div>
                             <div class="col-sm-5 col-md-7 transfer-total">
                                 <h5 class="sub">Total Amount</h5>
-                                <div class="price">@currency($inv->quotation->total)</div>
+                                <div class="price">@currency($do->invoice->quotation->total)</div>
                                 <span>Taxes Included</span>
                             </div>
                         </div>
@@ -123,7 +122,7 @@
                         <h6 class="text-uppercase mt-4 mb-3 fw-bold">
                             Notes
                         </h6>
-
+                        Barang yang rusak akan memiliki garansi 3 bulan sesuai dengan segel yang ada pada unit.
                     </div>
                 </div>
             </div>
@@ -145,7 +144,7 @@
         <div class="card">
             <div class="card-body">
                 <h5>Status:
-                    @if ($inv->status == 0)
+                    @if ($do->status == 0)
                     <span class="badge badge-info">Draft</span>
                     @elseif ($inv->status == 1)
                         Konfirmasi

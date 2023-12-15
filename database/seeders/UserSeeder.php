@@ -29,6 +29,13 @@ class UserSeeder extends Seeder
                 'role' => '2',
                 'slug' => 'karyawan'
             ],
+            [
+                'name' => 'manager',
+                'email' => 'manager',
+                'password' => bcrypt('12345'),
+                'role' => '3',
+                'slug' => 'manager'
+            ],
 
             // Tambahkan data perusahaan lainnya sesuai kebutuhan
         ];

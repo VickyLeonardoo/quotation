@@ -7,6 +7,7 @@ use App\Models\Delivery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use App\Models\Cv;
 
 class DeliveryController extends Controller
 {
@@ -38,7 +39,7 @@ class DeliveryController extends Controller
         $deliveryNo = "DO/{$deliveryId}/{$currentMonth}/{$currentYear}";
 
         return view('admin.delivery.create',[
-            'invoices' => Invoice::where('status',['1','2'])->where('is_archive',false)->get(),
+            'invoices' => Invoice::where('status',['3','4'])->where('is_archive',false)->get(),
             'deliveryNo' => $deliveryNo,
         ]);
     }
@@ -102,5 +103,12 @@ class DeliveryController extends Controller
         }else{
             return redirect()->back()->with('error','Status delivery sudah confirmed, tidak dapat dihapus');
         }
+    }
+
+    public function viewDelivery(Delivery $id){
+        return view('admin.delivery.view',[
+            'do' => $id,
+            'cv' => Cv::first(),
+        ]);
     }
 }

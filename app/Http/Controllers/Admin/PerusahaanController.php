@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Produk;
 use App\Models\Perusahaan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -129,8 +130,18 @@ class PerusahaanController extends Controller
     }
 
     public function destroy($id){
-        $perusahaan = Perusahaan::findOrFail($id);
-        $perusahaan->delete();
-        return redirect()->back()->with('success','Data Perusahaan berhasil dihapus');
+        try {
+            $perusahaan = Perusahaan::findOrFail($id);
+            $perusahaan->delete();
+            return redirect()->back()->with('success','Data Perusahaan berhasil dihapus');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+
+            if ($errorCode == 1451) { // Cek apakah kesalahan terkait foreign key constraint
+                return redirect()->back()->with('error', 'Perusahaan tidak dapat dihapus karena masih terdapat referensi di tabel lain.');
+            }
+            throw $e;
+        }
     }
+
 }

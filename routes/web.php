@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\CvController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\ProdukController;
@@ -10,10 +9,18 @@ use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\QuotationController;
 use App\Http\Controllers\Admin\PerusahaanController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\CvController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Karyawan\KaryawanProfileController;
 use App\Http\Controllers\Karyawan\KaryawanProjectController;
 use App\Http\Controllers\Karyawan\KaryawanQuotationController;
+use App\Http\Controllers\Manager\ManagerDeliveryController;
+use App\Http\Controllers\Manager\ManagerInvoiceController;
+use App\Http\Controllers\Manager\ManagerKaryawanController;
+use App\Http\Controllers\Manager\ManagerPerusahaanController;
+use App\Http\Controllers\Manager\ManagerProdukController;
+use App\Http\Controllers\Manager\ManagerProjectController;
+use App\Http\Controllers\Manager\ManagerQuotationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +76,7 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::post('/karyawan', 'store')->name('admin.karyawan.store');
                 Route::get('/karyawan/{slug}/edit', 'edit')->name('admin.karyawan.edit');
                 Route::get('/karyawan/{id}/reset-password', 'resetPassword')->name('admin.karyawan.reset');
+                Route::get('/karyawan/{id}/delete', 'destroy')->name('admin.karyawan.delete');
             });
 
             Route::controller(QuotationController::class)->group(function () {
@@ -78,6 +86,7 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/quotation-draft/create', 'create')->name('admin.quotation.draft.create');
                 Route::post('/quotation-draft', 'store')->name('admin.quotation.draft.store');
                 Route::get('/quotation/{id}/view', 'viewQto')->name('admin.quotation.view');
+                Route::get('/quotation-draft/{id}/penging', 'pendingQto')->name('admin.quotation.set.pending');
                 Route::get('/quotation-draft/{id}/confirm', 'confirmQto')->name('admin.quotation.set.confirm');
                 Route::get('/quotation-draft/{id}/selesai', 'doneQto')->name('admin.quotation.set.selesai');
                 //Confirm Quotation
@@ -86,8 +95,12 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/quotation/{id}/print', 'print')->name('admin.quotation.print');
                 //Kirim Email
                 Route::get('/quotation/{id}/email', 'emailcustomer')->name('admin.quotation.email');
+
+                Route::get('/quotation/{id}/edit', 'edit')->name('admin.quotation.edit');
+                Route::get('/quotation/{id}/delete' ,'destroy')->name('admin.quotation.delete');
                 //End Draft Quotation
             });
+
             Route::controller(InvoiceController::class)->group(function () {
                 Route::get('/invoice', 'show')->name('admin.invoice');
                 //Draf Invoice
@@ -95,6 +108,7 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/invoice-draft/create', 'create')->name('admin.invoice.draft.create');
                 Route::post('/invoice-draf', 'store')->name('admin.invoice.draft.store');
                 Route::get('/invoice/{id}/view', 'viewInv')->name('admin.invoice.view');
+                Route::get('/invoice-draft/{id}/pending', 'pendingInv')->name('admin.invoice.set.pending');
                 Route::get('/invoice-draft/{id}/confirm', 'confirmInv')->name('admin.invoice.set.confirm');
 
                 Route::get('/invoice/{id}/print', 'print')->name('admin.invoice.print');
@@ -121,6 +135,86 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/delivery-draft/{id}/edit', 'edit')->name('admin.delivery.draft.edit');
                 Route::post('/delivery-draft/{id}/edit', 'update')->name('admin.delivery.draft.update');
                 Route::get('/deliver-draft/{id}/delete', 'destroy')->name('admin.delivery.draft.delete');
+                Route::get('/delivery-draft/{id}/view', 'viewDelivery')->name('admin.delivery.view');
+            });
+        });
+    });
+});
+
+Route::group(['middleware' => ['auth:user']], function () {
+    Route::group(['middleware' => ['cek_login:3']], function () {
+        Route::get('/manager', [DashboardController::class, 'index'])->name('manager.dashboard');
+
+        Route::prefix('manager')->group(function () {
+            Route::controller(CvController::class)->group(function () {
+                Route::get('/cv', 'show')->name('manager.cv');
+                Route::post('/cv', 'update')->name('manager.cv.update');
+            });
+
+            Route::controller(ManagerProdukController::class)->group(function () {
+                Route::get('/produk', 'show')->name('manager.produk');
+                Route::get('/produk/create', 'create')->name('manager.produk.create');
+                Route::post('/produk', 'store')->name('manager.produk.store');
+                Route::get('/produk/{slug}/edit', 'edit')->name('manager.produk.edit');
+                Route::post('/produk/{id}/update', 'update')->name('manager.produk.update');
+                Route::get('/produk/{id}/delete', 'destroy')->name('manager.produk.delete');
+            });
+
+            Route::controller(ManagerPerusahaanController::class)->group(function () {
+                Route::get('/perusahaan', 'show')->name('manager.perusahaan');
+                Route::get('/perusahaan/create', 'create')->name('manager.perusahaan.create');
+                Route::post('/perusahaan', 'store')->name('manager.perusahaan.store');
+                Route::get('/perusahaan/{slug}/edit', 'edit')->name('manager.perusahaan.edit');
+                Route::post('/perusahaan/{id}/update', 'update')->name('manager.perusahaan.update');
+                Route::get('/perusahaan/{id}/delete', 'destroy')->name('manager.perusahaan.delete');
+            });
+
+            Route::controller(ManagerKaryawanController::class)->group(function () {
+                Route::get('/karyawan', 'show')->name('manager.karyawan');
+                Route::get('/karyawan/create', 'create')->name('manager.karyawan.create');
+                Route::post('/karyawan', 'store')->name('manager.karyawan.store');
+                Route::get('/karyawan/{slug}/edit', 'edit')->name('manager.karyawan.edit');
+                Route::get('/karyawan/{id}/reset-password', 'resetPassword')->name('manager.karyawan.reset');
+            });
+
+            Route::controller(ManagerQuotationController::class)->group(function () {
+                Route::get('/quotation', 'show')->name('manager.quotation');
+                Route::get('/quotation-draft', 'showDraft')->name('manager.quotation.draft');
+                Route::get('/quotation/{id}/view', 'viewQto')->name('manager.quotation.view');
+                Route::get('/quotation-draft/{id}/accepted' ,'acceptedQto')->name('manager.quotation.set.accepted');
+                Route::get('/quotation-confirmed', 'showConf')->name('manager.quotation.confirmed');
+                Route::get('/quotation/{id}/print', 'print')->name('manager.quotation.print');
+            });
+
+            Route::controller(ManagerInvoiceController::class)->group(function () {
+                Route::get('/invoice', 'show')->name('manager.invoice');
+                //Draf Invoice
+                Route::get('/invoice-draft', 'showDraft')->name('manager.invoice.draft');
+                Route::get('/invoice/{id}/view', 'viewInv')->name('manager.invoice.view');
+                Route::get('/invoice-draft/{id}/accepted', 'acceptedInv')->name('manager.invoice.set.accepted');
+                Route::get('/invoice/{id}/print', 'print')->name('manager.invoice.print');
+                Route::get('/invoice-confirmed', 'showConf')->name('manager.invoice.confirmed');
+            });
+
+            Route::controller(ManagerProjectController::class)->group(function () {
+                Route::get('/project', 'index')->name('manager.project');
+                Route::get('/project-ongoing', 'showOngoing')->name('manager.project.ongoing');
+                Route::get('/project-ongoing/{id}/edit', 'edit')->name('manager.project.ongoing.edit');
+                Route::post('/project-ongoing/{id}/update', 'update')->name('manager.project.ongoing.update');
+                Route::get('/project-done', 'showDone')->name('manager.project.done');
+                Route::get('/project-done/{id}/view', 'editDone')->name('manager.project.done.edit');
+                //Draf Invoice
+            });
+
+            Route::controller(ManagerDeliveryController::class)->group(function () {
+                Route::get('/delivery', 'index')->name('manager.delivery');
+                Route::get('/delivery-draft', 'showDraft')->name('manager.delivery.draft');
+                Route::get('/delivery-confirmed', 'showConf')->name('manager.delivery.confirmed');
+                Route::get('/delivery-draft/create', 'create')->name('manager.delivery.draft.create');
+                Route::post('/delivery-draft', 'store')->name('manager.delivery.draft.store');
+                Route::get('/delivery-draft/{id}/edit', 'edit')->name('manager.delivery.draft.edit');
+                Route::post('/delivery-draft/{id}/edit', 'update')->name('manager.delivery.draft.update');
+                Route::get('/deliver-draft/{id}/delete', 'destroy')->name('manager.delivery.draft.delete');
             });
         });
     });
@@ -151,6 +245,8 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::post('/profile','updateProfile')->name('karyawan.update.profile');
                 Route::post('/profile/password','updatePassword')->name('karyawan.update.password');
             });
+
+
         });
     });
 });

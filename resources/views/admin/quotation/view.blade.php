@@ -2,8 +2,20 @@
 @section('title','View Quotation')
 @section('content')
 <div class="row">
-
     <div class="col-9 col-lg-10 col-xl-9">
+        @if ($qto->status == 1)
+        <div class="alert" style="background-color: #a5dffe" role="alert">
+            <h5 style="text-color: #2f215c">
+                Quotation telah di ajukan kepada Direktur, menunggu approval dari Direktur!
+            </h5>
+         </div>
+        @elseif ($qto->status == 2)
+        <div class="alert" style="background-color: #a5dffe" role="alert">
+            <h5 style="text-color: #2f215c">
+                Quotation telah disetujui, admin dapat mengirim email kepada customer!
+            </h5>
+         </div>
+        @endif
         <div class="row align-items-center">
             <div class="col">
                 <h6 class="page-pretitle">
@@ -12,16 +24,20 @@
                 <h4 class="page-title">Quotation #{{ $qto->quotationNo }}</h4>
             </div>
             <div class="col-auto">
-                @if ($qto->is_email == false)
+                @if ($qto->is_email == false && $qto->status == 2)
                 <a href="{{ route('admin.quotation.email',$qto->id) }}" class="btn btn-info ml-2">
                     <i class="fas fa-envelope"></i> Email
                 </a>
                 @endif
                 @if ($qto->status == 0)
+                <a href="{{ route('admin.quotation.set.pending',$qto->id) }}" class="btn btn-secondary ml-2">
+                    Set Pending
+                </a>
+                @elseif ($qto->status == 2)
                 <a href="{{ route('admin.quotation.set.confirm',$qto->id) }}" class="btn btn-secondary ml-2">
                     Konfirmasi
                 </a>
-                @elseif ($qto->status == 1)
+                @elseif ($qto->status == 3)
                 <a href="{{ route('admin.quotation.set.selesai',$qto->id) }}" class="btn btn-success ml-2">
                     Selesai
                 </a>
@@ -154,8 +170,15 @@
                     @if ($qto->status == 0)
                     <span class="badge badge-info">Draft</span>
                     @elseif ($qto->status == 1)
-                        Konfirmasi
+                        Pending
+                    @elseif ($qto->status == 2)
+                        Accepted
+                    @elseif ($qto->status == 3)
+                        Confirmed
+                    @elseif ($qto->status == 4)
+                        Done
                     @else
+                        Reject
                     <span class="badge badge-success">Selesai</span>
                     @endif
                 </h5>

@@ -20,6 +20,7 @@
                                     <th>Kode</th>
                                     <th>Nama</th>
                                     <th>Tanggal</th>
+                                    <th>Status</th>
                                     <th>#</th>
                                 </tr>
                             </thead>
@@ -30,6 +31,15 @@
                                     <td>{{ $inv->quotation->quotationNo }}</td>
                                     <td>{{ $inv->quotation->perusahaan->nama }}</td>
                                     <td>{{ Carbon\Carbon::parse($inv->quotation->tglQuotation)->format('d-M-Y') }}</td>
+                                    <td>
+                                        @if ($inv->status == 0)
+                                            Draft
+                                        @elseif ($inv->status == 1)
+                                            Pending
+                                        @elseif ($inv->status == 2)
+                                            Approved
+                                        @endif
+                                    </td>
                                     <td>
                                         <a href="{{ route('admin.invoice.view',$inv->id) }}" title="Quotation" class="btn btn-info"><i class="fas fa-file-invoice"></i></a>
                                         <a href="#" title="Edit" class="btn btn-info"><i class="fas fa-edit"></i></a>

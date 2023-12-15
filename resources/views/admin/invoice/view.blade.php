@@ -3,6 +3,13 @@
 @section('content')
 <div class="row">
     <div class="col-9 col-lg-10 col-xl-9">
+        @if ($inv->status == 1)
+        <div class="alert" style="background-color: #a5dffe" role="alert">
+            <h5 style="text-color: #2f215c">
+                Invoice telah di ajukan kepada Direktur, menunggu approval dari Direktur!
+            </h5>
+         </div>
+        @endif
         <div class="row align-items-center">
             <div class="col">
                 <h6 class="page-pretitle">
@@ -12,10 +19,14 @@
             </div>
             <div class="col-auto">
                 @if ($inv->status == 0)
+                <a href="{{ route('admin.invoice.set.pending',$inv->id) }}" class="btn btn-secondary ml-2">
+                    Set Pending
+                </a>
+                @elseif ($inv->status == 2)
                 <a href="{{ route('admin.invoice.set.confirm',$inv->id) }}" class="btn btn-secondary ml-2">
                     Konfirmasi
                 </a>
-                @elseif ($inv->status == 1)
+                @elseif ($inv->status == 3)
                 <a href="{{ route('admin.invoice.set.selesai',$inv->id) }}" class="btn btn-success ml-2">
                     Selesai
                 </a>
@@ -148,7 +159,13 @@
                     @if ($inv->status == 0)
                     <span class="badge badge-info">Draft</span>
                     @elseif ($inv->status == 1)
-                        Konfirmasi
+                        Pending
+                    @elseif ($inv->status == 2)
+                        Approved
+                    @elseif ($inv->status == 3)
+                        Confirmed
+                    @elseif ($inv->status == 5)
+                        Ditolak
                     @else
                     <span class="badge badge-success">Selesai</span>
                     @endif

@@ -86,9 +86,18 @@ class ProdukController extends Controller
     }
 
     public function destroy($id){
-        $produk = Produk::findOrFail($id);
-        $produk->delete();
-        return redirect()->back()->with('success','Produk berhasil dihapus');
+        try {
+            $produk = Produk::findOrFail($id);
+            $produk->delete();
+            return redirect()->back()->with('success', 'Produk berhasil dihapus');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+
+            if ($errorCode == 1451) { // Cek apakah kesalahan terkait foreign key constraint
+                return redirect()->back()->with('error', 'Produk tidak dapat dihapus karena masih terdapat referensi di tabel lain.');
+            }
+            throw $e;
+        }
     }
 
 }

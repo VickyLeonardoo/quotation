@@ -31,7 +31,7 @@
                                         <td>{{ $delivery->invoice->quotation->quotationNo }}</td>
                                         <td>{{ Carbon\Carbon::parse($delivery->tglDelivery)->format('d-M-Y') }}</td>
                                         <td>
-                                            <a href="{{ route('admin.invoice.view', $delivery->id) }}" title="Quotation"
+                                            <a href="{{ route('admin.delivery.view', $delivery->id) }}" title="Quotation"
                                                 class="btn btn-info"><i class="fas fa-file-invoice"></i></a>
                                             <a href="{{ route('admin.delivery.draft.edit', $delivery->id) }}"
                                                 title="Edit Delivery" class="btn btn-info"><i class="fas fa-edit"></i></a>

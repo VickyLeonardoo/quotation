@@ -17,13 +17,13 @@ class InvoiceController extends Controller
 
     public function showDraft(){
         return view('admin.invoice.viewInv',[
-            'invoices' => Invoice::where('status','0')->where('is_archive',0)->get(),
+            'invoices' => Invoice::whereIn('status',['0','1','2'])->where('is_archive',0)->get(),
         ]);
     }
 
     public function showConf(){
         return view('admin.invoice.viewInv',[
-            'invoices' => Invoice::where('status','1')->where('is_archive',0)->get(),
+            'invoices' => Invoice::whereIn('status',['3','4'])->where('is_archive',0)->get(),
         ]);
     }
 
@@ -39,7 +39,7 @@ class InvoiceController extends Controller
         $invoiceNo = "INV/{$invoiceId}/{$currentMonth}/{$currentYear}";
 
         return view('admin.invoice.create',[
-            'quotations' => Quotation::where('is_archive',0)->where('status','1')->get(),
+            'quotations' => Quotation::where('is_archive',0)->where('status','3')->get(),
             'invoiceNo' => $invoiceNo,
         ]);
     }
@@ -88,10 +88,17 @@ class InvoiceController extends Controller
         ]);
     }
 
+    public function pendingInv(Invoice $id){
+        $id->update([
+            'status' => '1'
+        ]);
+        return redirect()->route('admin.invoice.draft')->with('success','Invoice berhasil dikonfirmasi');
+    }
+
     public function confirmInv($id){
         $inv = Invoice::findOrFail($id);
         $inv->update([
-            'status' => '1'
+            'status' => '3'
         ]);
         return redirect()->route('admin.invoice.draft')->with('success','Invoice berhasil dikonfirmasi');
     }
@@ -99,7 +106,7 @@ class InvoiceController extends Controller
     public function doneInv($id){
         $inv = Invoice::findOrFail($id);
         $inv->update([
-            'status' => '2'
+            'status' => '4'
         ]);
         return redirect()->route('admin.invoice.confirmed')->with('success','Invoice berhasil diselesaikan');
     }
