@@ -9,7 +9,11 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
     public function index(){
-        return view('admin.project.index');
+        return view('admin.project.index',[
+            'ongoCount' => Project::where('status','0')->where('is_archive','0')->count(),
+            'doneCount' => Project::where('status','1')->where('is_archive','0')->count(),
+            'archiveCount' => Project::where('is_archive','1')->count(),
+        ]);
     }
 
     public function showOngoing(){

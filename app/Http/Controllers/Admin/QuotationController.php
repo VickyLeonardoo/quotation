@@ -16,6 +16,7 @@ use App\Mail\ApprovalMail;
 // use Barryvdh\DomPDF\PDF;
 use App\Models\Perusahaan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\PDF as DomPDFPDF;
@@ -23,7 +24,11 @@ use Barryvdh\DomPDF\PDF as DomPDFPDF;
 class QuotationController extends Controller
 {
     public function show(){
-        return view('admin.quotation.index');
+        return view('admin.quotation.index',[
+            'draftCount' => Quotation::whereIn('status',['0','1','5'])->where('is_archive','0')->count(),
+            'confCount' => Quotation::whereIn('status',['2','3','4'])->where('is_archive','0')->count(),
+            'archiveCount' => Quotation::where('is_archive','1')->count(),
+        ]);
     }
 
     public function showDraft(){
@@ -34,7 +39,7 @@ class QuotationController extends Controller
 
     public function showConf(){
         return view('admin.quotation.qtoDraft',[
-            'quotations' => Quotation::where('status','3')->where('is_archive','0')->get(),
+            'quotations' => Quotation::whereIn('status',['2','3','4'])->where('is_archive','0')->get(),
         ]);
     }
 
@@ -62,6 +67,8 @@ class QuotationController extends Controller
             'tglQuotation' => 'required',
             'produk_id' => 'required|array',
             'quantity' => 'required|array',
+            'garansi' => 'required',
+            'periode' => 'required',
         ]);
         // return $validatedData;
         // $email = $user->email;
@@ -70,6 +77,7 @@ class QuotationController extends Controller
         $quotation->perusahaan_id = $validatedData['perusahaan_id'];
         $quotation->quotationNo = $validatedData['quotation_no'];
         $quotation->tglQuotation = $validatedData['tglQuotation'];
+        $quotation->garansi = $validatedData['garansi'].' '. $validatedData['periode'] ;
         $quotation->save();
 
         // Simpan data ke dalam tabel pivot (many-to-many) dengan menghitung total
@@ -87,7 +95,6 @@ class QuotationController extends Controller
             $total += $harga * $quantity;
         }
 
-        // Simpan total ke dalam atribut total pada model Quotation
         $quotation->total = $total;
         $quotation->save();
 
@@ -131,13 +138,18 @@ class QuotationController extends Controller
 
     public function confirmQto($id){
         $qto = Quotation::findOrFail($id);
-        $qto->update([
-            'status' => '3',
-        ]);
-        $project = Project::create([
-            'quotation_id' => $id,
-        ]);
-        return redirect()->route('admin.project.ongoing.edit',$project->id)->with('success','Project Berhasil Dibuat, Lengkapi Formulir Project yang Tersedia');
+        if ($qto->project) {
+            return redirect()->back()->with('error', 'Project telah dibuat, silahkan periksa quotation yang tersedia');
+        }else{
+            $qto->update([
+                'status' => '3',
+            ]);
+            $project = Project::create([
+                'quotation_id' => $id,
+            ]);
+            return redirect()->route('admin.project.ongoing.edit',$project->id)->with('success','Project Berhasil Dibuat, Lengkapi Formulir Project yang Tersedia');
+        }
+
     }
 
     public function doneQto($id){
@@ -170,6 +182,18 @@ class QuotationController extends Controller
         }
     }
 
+    public function archiveQto(Quotation $id){
+        if ($id->status != 4) {
+            return redirect()->back()->with('error', 'Quotation hanya dapat di arsipkan jika sudah selesai');
+        }else{
+            $id->update([
+                'is_archive' => true
+            ]);
+            return redirect()->back()->with('success', 'Quotation berhasil di arsipkan');
+
+        }
+    }
+
     public function sendQuotationMail($id){
         $image = base64_encode(file_get_contents(public_path('/assets/gmp.png')));
         // Generate PDF from Blade template
@@ -182,6 +206,8 @@ class QuotationController extends Controller
         // return $pdf->download('quotation-download.pdf');
 
         $dompdf = new Dompdf();
+        // $dompdf->set_option('enable_remote', true);
+        // $dompdf->set_option('chroot', public_path('assets'));
         $html = view('email.quotationMail', ['qto' => $qto, 'img' => $image])->render();
         $dompdf->loadHtml($html);
         $dompdf->render();
@@ -206,10 +232,32 @@ class QuotationController extends Controller
         return redirect()->back()->withToastSuccess('Email Berhasil Dikirim');
     }
 
-    // public function sendQuotationMail($id){
-    //         // Generate PDF from Blade template
-    //     $qto = Quotation::find($id);
-    //     $pdf = PDF::loadView('email.quotationMail', ['qto'=>$qto]);
-    //     return $pdf->stream('document.pdf');
-    // }
+    public function quotationArchive(){
+        // Mengambil semua tahun unik dari kolom 'tglQuotation' dengan pagination 10 item per halaman
+        $years = Quotation::select(DB::raw('DISTINCT YEAR(tglQuotation) as year'))
+                        ->orderBy('year', 'desc')
+                        ->paginate(12);
+        return view('admin.quotation.archive.index', ['years' => $years]);
+    }
+
+    public function yearArchive(Request $request, $year){
+        $quotationsYear = Quotation::whereYear('tglQuotation', $year)->where('is_archive','1')->get();
+
+        if($request["mulai"] == null) {
+            $request["mulai"] = $request["akhir"];
+        }
+
+        if($request["akhir"] == null) {
+            $request["akhir"] = $request["mulai"];
+        }
+
+        if ($request["mulai"] && $request["akhir"]) {
+            $quotationsYear = Quotation::whereBetween('tglQuotation', [$request["mulai"], $request["akhir"]])->get();
+        }
+        return view('admin.quotation.archive.archiveYear',[
+            'quotations' => $quotationsYear,
+            'year' => $year,
+        ]);
+    }
+
 }

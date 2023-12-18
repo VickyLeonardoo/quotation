@@ -13,8 +13,8 @@
                     </div>
                     <div class="col-7 col-stats">
                         <div class="numbers">
-                            <p class="card-category">Draft</p>
-                            <h4 class="card-title">150</h4>
+                            <p class="card-category">Ongoing</p>
+                            <h4 class="card-title">{{ $ongoCount }}</h4>
                         </div>
                     </div>
                 </div>
@@ -32,8 +32,8 @@
                     </div>
                     <div class="col-7 col-stats">
                         <div class="numbers">
-                            <p class="card-category">Confirmed</p>
-                            <h4 class="card-title">1,345</h4>
+                            <p class="card-category">Done</p>
+                            <h4 class="card-title">{{ $doneCount }}</h4>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                     <div class="col-7 col-stats">
                         <div class="numbers">
                             <p class="card-category">Arsip</p>
-                            <h4 class="card-title">23</h4>
+                            <h4 class="card-title">{{ $archiveCount }}</h4>
                         </div>
                     </div>
                 </div>

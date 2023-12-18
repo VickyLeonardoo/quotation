@@ -26,15 +26,38 @@
                         </div>
                         <div class="form-group">
                             <label for="">Quotation No</label>
-                            <input type="text" readonly class="form-control" name="quotation_no" value="{{ $qtoNo }}">
+                            <input type="text" readonly class="form-control" name="quotation_no"
+                                value="{{ $qtoNo }}">
                         </div>
-                        <div class="form-group">
-                            <label for="">Tanggal</label>
-                            <input type="text" class="form-control" name="tglQuotation" placeholder="Masukkan Tanggal"
-                                onfocus="(this.type='date')"onblur="(this.type='text')">
-                            @error('tglQuotation')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Tanggal</label>
+                                    <input type="text" class="form-control" name="tglQuotation" placeholder="Masukkan Tanggal"
+                                    onfocus="(this.type='date')"onblur="(this.type='text')">
+                                    @error('tglQuotation')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Garansi</label>
+                                    <input type="text" class="form-control {{ $errors->has('garansi') ? 'is-invalid':'' }}" name="garansi" placeholder="Masukkan Garansi">
+                                    @error('garansi')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Periode</label>
+                                    <select name="periode" class="form-control">
+                                        <option value="Months">Bulan</option>
+                                        <option value="Years">Tahun</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="">Produk</label>
@@ -57,6 +80,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <input type="submit" class="btn btn-info" value="Simpan">
                         </div>

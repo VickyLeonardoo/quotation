@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ArchiveController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\ProdukController;
@@ -89,17 +90,20 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/quotation-draft/{id}/penging', 'pendingQto')->name('admin.quotation.set.pending');
                 Route::get('/quotation-draft/{id}/confirm', 'confirmQto')->name('admin.quotation.set.confirm');
                 Route::get('/quotation-draft/{id}/selesai', 'doneQto')->name('admin.quotation.set.selesai');
+                Route::get('/quotation-draft/{id}/archive', 'archiveQto')->name('admin.quotation.set.archive');
                 //Confirm Quotation
                 Route::get('/quotation-confirmed', 'showConf')->name('admin.quotation.confirmed');
                 //Print
                 Route::get('/quotation/{id}/print', 'print')->name('admin.quotation.print');
-                //Kirim Email
                 // Route::get('/quotation/{id}/email', 'emailcustomer')->name('admin.quotation.email');
 
                 Route::get('/quotation/{id}/edit', 'edit')->name('admin.quotation.edit');
                 Route::get('/quotation/{id}/delete' ,'destroy')->name('admin.quotation.delete');
                 Route::get('/quotation/{id}/mail', 'sendQuotationMail')->name('admin.quotation.email');
-                //End Draft Quotation
+
+                Route::get('/quotation/archive', 'quotationArchive')->name('admin.quotation.archive');
+                Route::get('/quotation/archive/{year}', 'yearArchive')->name('admin.quotation.archive.year');
+
             });
 
             Route::controller(InvoiceController::class)->group(function () {
@@ -116,6 +120,10 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/invoice-confirmed', 'showConf')->name('admin.invoice.confirmed');
                 Route::get('/invoice-draft/{id}/selesai', 'doneInv')->name('admin.invoice.set.selesai');
                 Route::get('/invoice-draft/{id}/delete', 'destroy')->name('admin.invoice.delete');
+
+                Route::get('/invoice/archive', 'invoiceArchive')->name('admin.invoice.archive');
+                Route::get('/invoice/archive/{year}', 'yearArchive')->name('admin.invoice.archive.year');
+
 
             });
 
@@ -139,6 +147,9 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::post('/delivery-draft/{id}/edit', 'update')->name('admin.delivery.draft.update');
                 Route::get('/deliver-draft/{id}/delete', 'destroy')->name('admin.delivery.draft.delete');
                 Route::get('/delivery-draft/{id}/view', 'viewDelivery')->name('admin.delivery.view');
+            });
+
+            Route::controller(ArchiveController::class)->group(function () {
             });
         });
     });

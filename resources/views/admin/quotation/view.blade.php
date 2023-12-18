@@ -3,6 +3,14 @@
 @section('content')
 <div class="row">
     <div class="col-9 col-lg-10 col-xl-9">
+        @if (session('error'))
+        <div class="alert alert-warning bg-danger alert-dismissible fade show text-white" role="alert">
+            <button type="button" class="pull-right bg-danger" style="border: none;" data-dismiss="alert" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+            {{ session('error') }}
+        </div>
+        @endif
         @if ($qto->status == 1)
         <div class="alert" style="background-color: #a5dffe" role="alert">
             <h5 style="text-color: #2f215c">
@@ -24,11 +32,11 @@
                 <h4 class="page-title">Quotation #{{ $qto->quotationNo }}</h4>
             </div>
             <div class="col-auto">
-                {{-- @if ($qto->is_email == false && $qto->status == 2) --}}
+                @if ($qto->is_email == false && $qto->status == 2)
                 <a href="{{ route('admin.quotation.email',$qto->id) }}" class="btn btn-info ml-2">
                     <i class="fas fa-envelope"></i> Email
                 </a>
-                {{-- @endif --}}
+                @endif
                 @if ($qto->status == 0)
                 <a href="{{ route('admin.quotation.set.pending',$qto->id) }}" class="btn btn-secondary ml-2">
                     Set Pending
@@ -79,6 +87,8 @@
                             <div class="col-md-4 info-invoice">
                                 <h5 class="sub">Quotation No</h5>
                                 <p>{{ $qto->quotationNo }}</p>
+                                <h5 class="sub">Warranty</h5>
+                                <p>{{ $qto->garansi }}</p>
                             </div>
                             <div class="col-md-4 info-invoice">
                                 <h5 class="sub">Quotation To</h5>

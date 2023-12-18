@@ -2,7 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    {{-- <meta charset="UTF-8"> --}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice</title>
     <style>
@@ -199,7 +200,7 @@
 </head>
 
 <body>
-    <img src="{{asset ('assets/gmp.png')}}" alt="Company Logo" id="logo">
+    <img src="{{asset ('/gmp.png')}}" alt="Company Logo" id="logo">
     <header>
         <p class="namaPerusahaan">CV. Gabril Mitra Perkasa</p>
         <P class="fixture">JIG & FIXTURE &#8226; FABRICATION &#8226; MECHANICAL &#8226; ELECTRICAL &#8226; GENERAL

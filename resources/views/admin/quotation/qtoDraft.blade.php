@@ -58,6 +58,7 @@
                                         <a href="{{ route('admin.quotation.view',$qto->id) }}" title="Quotation" class="btn btn-info"><i class="fas fa-file-invoice"></i></a>
                                         <a href="{{ route('admin.quotation.edit',$qto->id) }}" title="Edit" class="btn btn-info"><i class="fas fa-edit"></i></a>
                                         <button type="button" class="btn btn-danger" title="Hapus" id="alertDeleteQto_{{ $qto->id }}"><i class="fas fa-trash"></i></button>
+                                        <a href="{{ route('admin.quotation.set.archive',$qto->id) }}" title="Arsip" class="btn btn-secondary"><i class="fas fa-archive"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

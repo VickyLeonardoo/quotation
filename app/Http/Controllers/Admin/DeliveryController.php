@@ -12,7 +12,11 @@ use App\Models\Cv;
 class DeliveryController extends Controller
 {
     public function index(){
-        return view('admin.delivery.index');
+        return view('admin.delivery.index',[
+            'draftCount' => Delivery::where('status','0')->where('is_archive' ,'0')->count(),
+            'confCount' => Delivery::where('status','1')->where('is_archive' ,'0')->count(),
+            'archiveCount' => Delivery::where('is_archive' ,'1')->count(),
+        ]);
     }
 
     public function showDraft(){
