@@ -157,8 +157,8 @@
 				<nav class="pull-left">
 					<ul class="nav">
 						<li class="nav-item">
-							<a class="nav-link text-white" href="http://www.themekita.com">
-								ThemeKita
+							<a class="nav-link text-white" href="#">
+								Yesi
 							</a>
 						</li>
 						<li class="nav-item">
@@ -174,7 +174,7 @@
 					</ul>
 				</nav>
 				<div class="copyright text-white ml-auto">
-					2018, made with <i class="fa fa-heart heart text-danger"></i> by <a class=" text-white" href="http://www.themekita.com">ThemeKita</a>
+					2018, made with <i class="fa fa-heart heart text-danger"></i> by <a class=" text-white" href="#">Yesi</a>
 				</div>
 			</div>
 		</footer>

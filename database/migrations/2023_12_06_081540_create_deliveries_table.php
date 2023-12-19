@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('deliveryNo')->nullable()->unique();
             $table->foreignId('invoice_id')->references('id')->on('invoices');
             $table->date('tglDelivery')->nullable();
-            $table->enum('status',[0,1])->default(0);
+            $table->enum('status',[0,1,2])->default(0);
             $table->boolean('is_archive')->default(false);
             $table->timestamps();
         });

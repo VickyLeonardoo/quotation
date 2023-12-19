@@ -37,6 +37,9 @@
                                                 title="Edit Delivery" class="btn btn-info"><i class="fas fa-edit"></i></a>
                                             <button type="button" class="btn btn-danger" title="Hapus"
                                                 id="alertDelete_{{ $delivery->id }}"><i class="fas fa-trash"></i></button>
+                                            <a href="{{ route('admin.delivery.set.archive', $delivery->id) }}" title="Arsip"
+                                                class="btn btn-secondary"><i class="fas fa-archive"></i></a>
+
                                         </td>
                                     </tr>
                                 @endforeach

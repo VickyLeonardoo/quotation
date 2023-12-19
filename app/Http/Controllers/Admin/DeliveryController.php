@@ -117,6 +117,17 @@ class DeliveryController extends Controller
         ]);
     }
 
+    public function archiveDelivery(Delivery $id){
+        if ($id->status != 2) {
+            return redirect()->back()->with('error', 'Invoice hanya dapat di arsipkan jika sudah selesai');
+        }else{
+            $id->update([
+                'is_archive' => true
+            ]);
+            return redirect()->back()->with('success', 'Invoice berhasil di arsipkan');
+        }
+    }
+
     public function deliveryArchive(){
         $years = Delivery::select(DB::raw('DISTINCT YEAR(tglDelivery) as year'))
                         ->orderBy('year', 'desc')

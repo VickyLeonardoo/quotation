@@ -158,6 +158,9 @@ Route::group(['middleware' => ['auth:user']], function () {
 
                 Route::get('/delivery/archive', 'deliveryArchive')->name('admin.delivery.archive');
                 Route::get('/delivery/archive/{year}', 'yearArchive')->name('admin.delivery.archive.year');
+
+                Route::get('/delivery-draft/{id}/archive', 'archiveDelivery')->name('admin.delivery.set.archive');
+
             });
 
             Route::controller(ArchiveController::class)->group(function () {
