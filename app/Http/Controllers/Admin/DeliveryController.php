@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Cv;
 use App\Models\Invoice;
 use App\Models\Delivery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Cv;
 
 class DeliveryController extends Controller
 {
@@ -113,6 +114,33 @@ class DeliveryController extends Controller
         return view('admin.delivery.view',[
             'do' => $id,
             'cv' => Cv::first(),
+        ]);
+    }
+
+    public function deliveryArchive(){
+        $years = Delivery::select(DB::raw('DISTINCT YEAR(tglDelivery) as year'))
+                        ->orderBy('year', 'desc')
+                        ->paginate(12);
+        return view('admin.delivery.archive.index', ['years' => $years]);
+    }
+
+    public function yearArchive(Request $request, $year){
+        $deliveryYears = Delivery::whereYear('tglDelivery', $year)->where('is_archive','1')->get();
+
+        if($request["mulai"] == null) {
+            $request["mulai"] = $request["akhir"];
+        }
+
+        if($request["akhir"] == null) {
+            $request["akhir"] = $request["mulai"];
+        }
+
+        if ($request["mulai"] && $request["akhir"]) {
+            $deliveryYears = Delivery::whereBetween('tglDelivery', [$request["mulai"], $request["akhir"]])->get();
+        }
+        return view('admin.delivery.archive.archiveYear',[
+            'deliveries' => $deliveryYears,
+            'year' => $year,
         ]);
     }
 }

@@ -44,7 +44,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('admin.invoice.view',$inv->id) }}" title="Quotation" class="btn btn-info"><i class="fas fa-file-invoice"></i></a>
-                                        <a href="#" title="Edit" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                        <a href="{{ route('admin.invoice.edit',$inv->id) }}" title="Edit" class="btn btn-info"><i class="fas fa-edit"></i></a>
                                         <button type="button" class="btn btn-danger" title="Hapus" id="alertDeleteInv{{ $inv->id }}"><i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>

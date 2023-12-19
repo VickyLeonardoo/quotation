@@ -53,6 +53,8 @@
                             <div class="col-md-4 info-invoice">
                                 <h5 class="sub">Quotation No</h5>
                                 <p>{{ $qto->quotationNo }}</p>
+                                <h5 class="sub">Warranty</h5>
+                                <p>{{ $qto->garansi }} {{ $qto->periode }}</p>
                             </div>
                             <div class="col-md-4 info-invoice">
                                 <h5 class="sub">Quotation To</h5>

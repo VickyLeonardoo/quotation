@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('kodeProduk')->unique();
             $table->string('namaProduk');
+            $table->string('brands')->nullable();
+            $table->enum('uom',['pcs','meters','kg'])->nullable();
             $table->decimal('hargaProduk', 15, 2);
             $table->string('slug')->unique();
             $table->timestamps();

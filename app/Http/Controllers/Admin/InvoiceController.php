@@ -47,7 +47,7 @@ class InvoiceController extends Controller
         $invoiceNo = "INV/{$invoiceId}/{$currentMonth}/{$currentYear}";
 
         return view('admin.invoice.create',[
-            'quotations' => Quotation::where('is_archive',0)->where('status','3')->get(),
+            'quotations' => Quotation::where('is_archive',0)->whereIn('status',['3','4'])->get(),
             'invoiceNo' => $invoiceNo,
         ]);
     }
@@ -80,6 +80,35 @@ class InvoiceController extends Controller
             ]);
             return redirect()->route('admin.invoice.draft')->with('success','Invoice berhasil dibuat');
         }
+    }
+
+    public function edit(Invoice $id){
+        return view('admin.invoice.edit',[
+            'quotations' => Quotation::where('is_archive',0)->whereIn('status',['3','4'])->get(),
+            'inv' => $id,
+        ]);
+    }
+
+    public function update(Request $request, Quotation $id){
+        $validatedData = $request->validate([
+            'quotation_id' => 'required',
+            'invoiceNo' => 'required',
+            'tglInvoice' => 'required',
+            'payment_due' => 'required',
+        ],[
+            'quotation_id.required' => 'Wajib memilih Quotation',
+            'invoiceNo.required' => 'No Invoice Kosong',
+            'tglInvoice.required' => 'Tanggal invoice wajib diisi',
+            'payment_due.required' => 'Batas pembayaran wajib diisi',
+        ]);
+
+        $tglInvoice = Carbon::parse($validatedData['tglInvoice']);
+        $paymentDue = $tglInvoice->addDays($request->payment_due);
+        $validatedData['payment_due'] = $paymentDue;
+        $id->update($validatedData);
+        return redirect()->route('admin.invoice.draft')->with('success','Invoice berhasil diperbarui');
+
+
     }
 
     public function viewInv($id){
@@ -167,5 +196,7 @@ class InvoiceController extends Controller
             'year' => $year,
         ]);
     }
+
+
 
 }

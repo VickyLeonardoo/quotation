@@ -32,7 +32,7 @@
                                     <td>{{ $project->nama }}</td>
                                     <td>{{ $project->quotation->perusahaan->nama }}</td>
                                     <td>{{ Carbon\Carbon::parse($project->tglMulai)->isoFormat('DD MMMM YYYY') }}</td>
-                                    <td>{{ $project->tglSelesai == '' ? Carbon\Carbon::parse($project->tglSelesai)->isoFormat('DD MMMM YYYY'):'-'}}</td>
+                                    <td>{{ !$project->tglSelesai != '' ? '-':Carbon\Carbon::parse($project->tglSelesai)->isoFormat('DD MMMM YYYY')}}</td>
                                     <td>
                                         <a href="{{ route('karyawan.project.ongoing.update',$project->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                     </td>

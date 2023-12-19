@@ -39,7 +39,7 @@
                                     <td>{{ $qto->quotationNo }}</td>
                                     <td>{{ $qto->perusahaan->nama }}</td>
                                     <td>{{ Carbon\Carbon::parse($qto->tglQuotation)->format('d-M-Y') }}</td>
-                                    <td>
+                                    <td bgcolor="{{ $qto->status == 5 ? 'red':'' }}">
                                         @if ($qto->status == 0)
                                             Draft
                                         @elseif ($qto->status == 1)

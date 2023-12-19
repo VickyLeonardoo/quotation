@@ -18,7 +18,8 @@ return new class extends Migration
             $table->date('tglQuotation');
             $table->decimal('total', 15, 2)->nullable();
             $table->enum('status', [0, 1, 2, 3, 4, 5])->default('0')->comment('0 = Draft, 1 = Pending,2 = Accepted, 3 = Confirmed, 4 = Selesai, 5 = Ditolax');
-            $table->string('garansi');
+            $table->integer('garansi');
+            $table->enum('periode',['Years','Months']);
             $table->boolean('is_invoice')->default(false);
             $table->boolean('is_email')->default(false);
             $table->boolean('is_archive')->default(false);

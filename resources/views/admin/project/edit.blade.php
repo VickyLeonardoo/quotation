@@ -43,9 +43,9 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="">Tanggal Selesai</label>
+                                    <label for="">Tanggal Mulai</label>
                                     <input type="text"  class="form-control" value="{{ $project->tglMulai }}" name="tglMulai" {{ $project->status == 1 ? 'readonly':'' }}
-                                        placeholder="Masukkan Tanggal Selesai"
+                                        placeholder="Masukkan Tanggal Mulai"
                                         onfocus="(this.type='date')"onblur="(this.type='text')">
                                 </div>
                             </div>

@@ -55,6 +55,8 @@ class ProdukController extends Controller
             'kodeProduk' => $request->kodeProduk,
             'namaProduk' => $request->namaProduk,
             'hargaProduk' => $request->hargaProduk,
+            'uom' => $request->uom,
+            'brands' => $request->brands,
             'slug' => $slug,
         ];
         Produk::create($data);
@@ -79,6 +81,8 @@ class ProdukController extends Controller
             'kodeProduk' => $request->kodeProduk,
             'namaProduk' => $request->namaProduk,
             'hargaProduk' => $request->hargaProduk,
+            'uom' => $request->uom,
+            'brands' => $request->brands,
             'slug' => $slug,
         ];
         Produk::where('id',$id)->update($data);

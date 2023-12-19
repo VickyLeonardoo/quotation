@@ -30,6 +30,22 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="">Brands</label>
+                            <input type="text" class="form-control {{ $errors->has('brands') }}" name="brands" value="{{ $produk->brands }}" placeholder="Masukkan Nama Produk">
+                            @error('brands')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">UOM</label>
+                            <select name="uom" class="form-control">
+                                <option value="" {{ $produk->uom == '' ? 'selected':''}}>Jasa</option>
+                                <option value="meters" {{ $produk->uom == 'meters' ? 'selected':''}}>Meter</option>
+                                <option value="kg" {{ $produk->uom == 'kg' ? 'selected':''}}>Kg</option>
+                                <option value="pcs" {{ $produk->uom == 'pcs' ? 'selected':''}}>Pcs</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="">Harga</label>
                             <input type="number" class="form-control {{ $errors->has('hargaProduk') }}" name="hargaProduk" value="{{ $produk->hargaProduk }}" placeholder="Masukkan Nama Produk">
                             @error('hargaProduk')

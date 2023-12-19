@@ -77,7 +77,8 @@ class QuotationController extends Controller
         $quotation->perusahaan_id = $validatedData['perusahaan_id'];
         $quotation->quotationNo = $validatedData['quotation_no'];
         $quotation->tglQuotation = $validatedData['tglQuotation'];
-        $quotation->garansi = $validatedData['garansi'].' '. $validatedData['periode'] ;
+        $quotation->garansi = $validatedData['garansi'];
+        $quotation->periode = $validatedData['periode'];
         $quotation->save();
 
         // Simpan data ke dalam tabel pivot (many-to-many) dengan menghitung total
@@ -124,6 +125,14 @@ class QuotationController extends Controller
         return redirect()->back()->with('success','Email berhasil dikirim kepada customer');
     }
 
+    public function draftQto(Quotation $id){
+        $id->update([
+            'status' => '0',
+        ]);
+        return redirect()->route('admin.quotation.draft')->with('success','Quotation berhasil set ke draft');
+
+    }
+
     public function pendingQto($id){
         $user = User::where('role','3')->first();
         // $email = $user->email;
@@ -155,14 +164,72 @@ class QuotationController extends Controller
     public function doneQto($id){
         $qto = Quotation::findOrFail($id);
         $qto->update([
-            'status' => '2',
+            'status' => '4',
         ]);
         return redirect()->back()->with('success','Status Quotation berhasil menjadi Selesai');
     }
 
     public function edit(Quotation $id){
+        if (in_array($id->status, [0,1])) {
+            return view('admin.quotation.edit', [
+                'qto' => $id,
+                'perusahaans' => Perusahaan::all(),
+                'produks' => Produk::all(),
+            ]);
+        } else {
+            return redirect()->back()->with('error', 'Quotation yang sudah Dikonfirmasi tidak dapat di edit. Set ke draft terlebih dahulu');
+        }
 
     }
+
+    public function update(Request $request, Quotation $id){
+        $validatedData = $request->validate([
+            'perusahaan_id' => 'required',
+            'quotation_no' => 'required',
+            'tglQuotation' => 'required',
+            'produk_id' => 'required|array',
+            'quantity' => 'required|array',
+            'garansi' => 'required',
+            'periode' => 'required',
+        ]);
+
+        // Ambil instance Quotation yang ingin diupdate
+        $quotation = $id;
+
+        // Update data utama Quotation
+        $quotation->update([
+            'perusahaan_id' => $validatedData['perusahaan_id'],
+            'quotationNo' => $validatedData['quotation_no'],
+            'tglQuotation' => $validatedData['tglQuotation'],
+            'garansi' => $validatedData['garansi'],
+            'periode' => $validatedData['periode'],
+        ]);
+
+        // Hapus semua produk terkait dari pivot table
+        $quotation->produk()->detach();
+
+        // Simpan data ke dalam tabel pivot (many-to-many) dengan menghitung total
+        $total = 0;
+        for ($i = 0; $i < count($validatedData['produk_id']); $i++) {
+            $product = Produk::find($validatedData['produk_id'][$i]);
+            $quantity = $validatedData['quantity'][$i];
+            $harga = $product->hargaProduk;
+
+            $quotation->produk()->attach($product->id, [
+                'quantity' => $quantity,
+                'harga' => $harga,
+            ]);
+
+            $total += $harga * $quantity;
+        }
+
+        // Update total di Quotation
+        $quotation->total = $total;
+        $quotation->save();
+
+        return redirect()->route('admin.quotation.draft')->with('success','Quotation Berhasil Diupdate');
+    }
+
 
     public function destroy(Quotation $id){
         try {
@@ -191,6 +258,15 @@ class QuotationController extends Controller
             ]);
             return redirect()->back()->with('success', 'Quotation berhasil di arsipkan');
 
+        }
+    }
+
+    public function rejectQto(Quotation $id){
+        if ($id->status == 2) {
+            $id->update([
+                'status' => '5'
+            ]);
+            return redirect()->back()->with('success', 'Quotation berhasil diperbarui');
         }
     }
 

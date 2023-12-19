@@ -8,6 +8,6 @@
 </head>
 <body>
 <h5>Direktur, ada Quotation yang butuh untuk di approve!</h5><br>
-Quotation NO: <strong>{{ $inb->invoiceNo }}</strong>
+Quotation NO: <strong>{{ $inv->invoiceNo }}</strong>
 </body>
 </html>

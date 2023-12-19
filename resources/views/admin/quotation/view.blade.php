@@ -45,6 +45,12 @@
                 <a href="{{ route('admin.quotation.set.confirm',$qto->id) }}" class="btn btn-secondary ml-2">
                     Konfirmasi
                 </a>
+                <a href="{{ route('admin.quotation.set.draft',$qto->id) }}" class="btn btn-warning ml-2">
+                    Set Draft
+                </a>
+                <a href="{{ route('admin.quotation.set.reject',$qto->id) }}" class="btn btn-danger ml-2">
+                    Reject
+                </a>
                 @elseif ($qto->status == 3)
                 <a href="{{ route('admin.quotation.set.selesai',$qto->id) }}" class="btn btn-success ml-2">
                     Selesai
@@ -88,7 +94,7 @@
                                 <h5 class="sub">Quotation No</h5>
                                 <p>{{ $qto->quotationNo }}</p>
                                 <h5 class="sub">Warranty</h5>
-                                <p>{{ $qto->garansi }}</p>
+                                <p>{{ $qto->garansi }} {{ $qto->periode }}</p>
                             </div>
                             <div class="col-md-4 info-invoice">
                                 <h5 class="sub">Quotation To</h5>
@@ -189,7 +195,6 @@
                         Done
                     @else
                         Reject
-                    <span class="badge badge-success">Selesai</span>
                     @endif
                 </h5>
                 <h5>
