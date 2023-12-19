@@ -18,4 +18,5 @@ class Project extends Model
     public function logbook(){
         return $this->hasMany(Logbook::class);
     }
+
 }

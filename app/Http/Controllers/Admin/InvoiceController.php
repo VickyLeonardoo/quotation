@@ -71,7 +71,7 @@ class InvoiceController extends Controller
         $validatedData['payment_due'] = $paymentDue;
         $qto = Quotation::findOrFail($qtoId);
 
-        if ($qto->is_invoice == true) {
+        if ($qto->invoice) {
             return redirect()->back()->with('error','Invoice untuk quotation sudah ada, Periksa invoice '.$qto->invoice->invoiceNo);
         }else{
             Invoice::create($validatedData);
@@ -167,6 +167,17 @@ class InvoiceController extends Controller
                 return redirect()->back()->with('error', 'Quotation tidak dapat dihapus karena masih terdapat referensi di tabel lain.');
             }
             throw $e;
+        }
+    }
+
+    public function archiveInv(Invoice $id){
+        if ($id->status != 4) {
+            return redirect()->back()->with('error', 'Invoice hanya dapat di arsipkan jika sudah selesai');
+        }else{
+            $id->update([
+                'is_archive' => true
+            ]);
+            return redirect()->back()->with('success', 'Invoice berhasil di arsipkan');
         }
     }
 

@@ -124,14 +124,12 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/invoice-confirmed', 'showConf')->name('admin.invoice.confirmed');
                 Route::get('/invoice-draft/{id}/selesai', 'doneInv')->name('admin.invoice.set.selesai');
                 Route::get('/invoice-draft/{id}/delete', 'destroy')->name('admin.invoice.delete');
-
+                Route::get('/invoice-draft/{id}/archive', 'archiveInv')->name('admin.invoice.set.archive');
                 Route::get('/invoice/{id}/edit', 'edit')->name('admin.invoice.edit');
                 Route::post('/invoice/{id}/update', 'update')->name('admin.invoice.draft.update');
 
                 Route::get('/invoice/archive', 'invoiceArchive')->name('admin.invoice.archive');
                 Route::get('/invoice/archive/{year}', 'yearArchive')->name('admin.invoice.archive.year');
-
-
             });
 
             Route::controller(ProjectController::class)->group(function () {
@@ -141,7 +139,10 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::post('/project-ongoing/{id}/update', 'update')->name('admin.project.ongoing.update');
                 Route::get('/project-done', 'showDone')->name('admin.project.done');
                 Route::get('/project-done/{id}/view', 'editDone')->name('admin.project.done.edit');
-                //Draf Invoice
+                Route::get('/project-ongoing/{id}/archive', 'archiveProject')->name('admin.project.set.archive');
+                Route::get('/project-ongoing/{id}/delete', 'destroy')->name('admin.project.ongoing.delete');
+                Route::get('/project-ongoing/create', 'create')->name('admin.project.ongoing.create');
+                Route::post('/project-ongoing/create', 'store')->name('admin.project.ongoing.store');
             });
 
             Route::controller(DeliveryController::class)->group(function () {

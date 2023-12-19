@@ -5,6 +5,14 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
+            @if (session('error'))
+            <div class="alert alert-warning bg-danger alert-dismissible fade show text-white" role="alert">
+                <button type="button" class="pull-right bg-danger" style="border: none;" data-dismiss="alert" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+                {{ session('error') }}
+            </div>
+            @endif
             <div class="card full-height">
                 <div class="card-body">
                     <div class="container-fluid">
@@ -46,6 +54,8 @@
                                         <a href="{{ route('admin.invoice.view',$inv->id) }}" title="Quotation" class="btn btn-info"><i class="fas fa-file-invoice"></i></a>
                                         <a href="{{ route('admin.invoice.edit',$inv->id) }}" title="Edit" class="btn btn-info"><i class="fas fa-edit"></i></a>
                                         <button type="button" class="btn btn-danger" title="Hapus" id="alertDeleteInv{{ $inv->id }}"><i class="fas fa-trash"></i></button>
+                                        <a href="{{ route('admin.invoice.set.archive',$inv->id) }}" title="Arsip" class="btn btn-secondary"><i class="fas fa-archive"></i></a>
+
                                     </td>
                                 </tr>
                                 @endforeach
