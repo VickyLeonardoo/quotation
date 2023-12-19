@@ -103,19 +103,43 @@
                     {!! $adminProjectChart->container() !!}
                 </div>
             </div>
-            {{-- <div class="card card-primary">
+            <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Daily Sales</div>
-                    <div class="card-category">March 25 - April 02</div>
+                    <div class="card-title">Project Berjalan</div>
+                    {{-- <div class="card-category">March 25 - April 02</div> --}}
                 </div>
                 <div class="card-body pb-0">
                     <div class="mb-4 mt-2">
                     </div>
                     <div class="pull-in">
-                        <canvas id="dailySalesChart"></canvas>
+                        <div class="table-responsive">
+                            <table id="" class="display table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Quotation No</th>
+                                        <th>Progres</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($projects as $project)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $project->quotation->quotationNo }}</td>
+                                        <td>{{ $project->logbook->last()->persentase }}%</td>
+                                        <td><a href="{{ url('admin/project-ongoing/'.$project->id.'/edit') }}">Periksa</a></td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <th colspan="4"><a href="{{ url('admin/project-ongoing') }}">Periksa Seluruhnya</a></th>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
 @endsection
