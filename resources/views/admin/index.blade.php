@@ -13,8 +13,8 @@
                         </div>
                         <div class="col-7 col-stats">
                             <div class="numbers">
-                                <p class="card-category">Number</p>
-                                <h4 class="card-title">150GB</h4>
+                                <p class="card-category">Quotation</p>
+                                <h4 class="card-title">{{ $qtoCount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -32,8 +32,8 @@
                         </div>
                         <div class="col-7 col-stats">
                             <div class="numbers">
-                                <p class="card-category">Revenue</p>
-                                <h4 class="card-title">$ 1,345</h4>
+                                <p class="card-category">Invoice</p>
+                                <h4 class="card-title">{{ $invCount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -51,8 +51,8 @@
                         </div>
                         <div class="col-7 col-stats">
                             <div class="numbers">
-                                <p class="card-category">Errors</p>
-                                <h4 class="card-title">23</h4>
+                                <p class="card-category">Project</p>
+                                <h4 class="card-title">{{ $proCount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -70,8 +70,8 @@
                         </div>
                         <div class="col-7 col-stats">
                             <div class="numbers">
-                                <p class="card-category">Followers</p>
-                                <h4 class="card-title">+45K</h4>
+                                <p class="card-category">Delivery Order</p>
+                                <h4 class="card-title">{{ $doCount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -92,6 +92,14 @@
                     <div class="chart-container" style="min-height: 375px">
                         {!! $MonthlyQuotationChart->container() !!}
                     </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    Estimasi Pendapatan
+                </div>
+                <div class="card-body">
+                    {{ $totalPendapatan }}
                 </div>
             </div>
         </div>

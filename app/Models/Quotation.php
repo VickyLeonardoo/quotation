@@ -35,4 +35,8 @@ class Quotation extends Model
     {
         return $this->hasOne(Project::class);
     }
+
+    public function log(){
+        return $this->hasMany(QuotationLog::class);
+    }
 }

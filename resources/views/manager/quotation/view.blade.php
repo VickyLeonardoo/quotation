@@ -168,8 +168,42 @@
                 </h5>
             </div>
         </div>
+        <h6 class="page-pretitle">
+            Reject Note
+        </h6>
+        <div class="card">
+            <div class="card-body">
+                @if ($qto->log)
+                    @foreach ($qto->log as $err)
+                    <p style="font-size: 16px;"><strong>Manager:</strong> {{ $err->deskripsi }}</p>
+                    <p class="mt--4 text-right" style="font-size: 10px;"><strong>{{ \Carbon\Carbon::parse($err->created_at)->diffForHumans() }}</strong></p>
+                    <hr>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+
+        @if ($qto->status == 1)
+        <div class="card">
+            <div class="card-header">
+                Reject Quotation
+            </div>
+            <form action="{{ route('manager.quotation.reject',$qto->id) }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label for="">Deskripsi: </label>
+                    <textarea name="deskripsi" class="form-control {{ $errors->has('deskripsi') ? 'is-invalid':'' }}" rows="7"></textarea>
+                    @error('deskripsi')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-danger" value="Reject">
+                </div>
+            </form>
+        </div>
+        @endif
     </div>
 </div>
-
 
 @endsection

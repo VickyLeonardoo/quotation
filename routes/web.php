@@ -212,6 +212,7 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/quotation-draft/{id}/accepted' ,'acceptedQto')->name('manager.quotation.set.accepted');
                 Route::get('/quotation-confirmed', 'showConf')->name('manager.quotation.confirmed');
                 Route::get('/quotation/{id}/print', 'print')->name('manager.quotation.print');
+                Route::post('/quotation/{id}/reject', 'reject')->name('manager.quotation.reject');
             });
 
             Route::controller(ManagerInvoiceController::class)->group(function () {

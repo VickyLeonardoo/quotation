@@ -49,4 +49,21 @@ class ManagerQuotationController extends Controller
         ]);
         return redirect()->back()->with('success','Status Quotation berhasil menjadi Accepted');
     }
+
+    public function reject(Request $request, Quotation $id){
+        $request->validate([
+            'deskripsi' => 'required'
+        ], [
+            'deskripsi.required' => 'Deskripsi wajib diisi'
+        ]);
+
+        $id->log()->create([
+            'deskripsi' => $request->deskripsi,
+        ]);
+
+        $id->update([
+            'status' => '5'
+        ]);
+        return redirect()->back()->with('success','Berhasil menolak quotation');
+    }
 }

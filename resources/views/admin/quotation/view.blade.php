@@ -54,6 +54,10 @@
                 @elseif ($qto->status == 3)
                 <a href="{{ route('admin.quotation.set.selesai',$qto->id) }}" class="btn btn-success ml-2">
                     Selesai
+                @elseif ($qto->status == 5)
+                <a href="{{ route('admin.quotation.set.draft',$qto->id) }}" class="btn btn-warning ml-2">
+                    Set Draft
+                </a>
                 </a>
                 @endif
                 <a href="{{ route('admin.quotation.print',$qto->id) }}" class="btn btn-primary ml-2">
@@ -205,6 +209,20 @@
                         <input type="checkbox" disabled>
                     @endif
                 </h5>
+            </div>
+        </div>
+        <h6 class="page-pretitle">
+            Reject Note
+        </h6>
+        <div class="card">
+            <div class="card-body">
+                @if ($qto->log)
+                    @foreach ($qto->log as $err)
+                    <p style="font-size: 16px;"><strong>Manager:</strong> {{ $err->deskripsi }}</p>
+                    <p class="mt--4 text-right" style="font-size: 10px;"><strong>{{ \Carbon\Carbon::parse($err->created_at)->diffForHumans() }}</strong></p>
+                    <hr>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
