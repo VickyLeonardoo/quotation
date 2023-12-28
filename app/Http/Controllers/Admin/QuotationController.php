@@ -145,13 +145,19 @@ class QuotationController extends Controller
         return redirect()->back()->with('success','Quotation berhasil set ke pending');
     }
 
-    public function confirmQto($id){
+    public function confirmQto(Request $request, $id){
+        $request->validate([
+            'purchaseNo' => 'required'
+        ],[
+            'purchaseNo.required' => 'PO Number Wajib Diisi',
+        ]);
         $qto = Quotation::findOrFail($id);
         if ($qto->project) {
             return redirect()->back()->with('error', 'Project telah dibuat, silahkan periksa quotation yang tersedia');
         }else{
             $qto->update([
                 'status' => '3',
+                'purchaseNo' => $request->purchaseNo,
             ]);
             $project = Project::create([
                 'quotation_id' => $id,

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use League\CommonMark\Delimiter\Delimiter;
 
 class DeliveryController extends Controller
 {
@@ -152,6 +153,13 @@ class DeliveryController extends Controller
         return view('admin.delivery.archive.archiveYear',[
             'deliveries' => $deliveryYears,
             'year' => $year,
+        ]);
+    }
+
+    public function print($id){
+        return view('admin.delivery.print',[
+            'do' => Delivery::findOrFail($id),
+            'cv' => Cv::first(),
         ]);
     }
 }

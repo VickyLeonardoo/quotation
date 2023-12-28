@@ -42,9 +42,6 @@
                     Set Pending
                 </a>
                 @elseif ($qto->status == 2)
-                <a href="{{ route('admin.quotation.set.confirm',$qto->id) }}" class="btn btn-secondary ml-2">
-                    Konfirmasi
-                </a>
                 <a href="{{ route('admin.quotation.set.draft',$qto->id) }}" class="btn btn-warning ml-2">
                     Set Draft
                 </a>
@@ -225,6 +222,27 @@
                 @endif
             </div>
         </div>
+
+        @if ($qto->status == 2)
+        <div class="card">
+            <div class="card-header">
+                Confirm Quotation
+            </div>
+            <form action="{{ route('admin.quotation.set.confirm',$qto->id) }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label for="">PO Number: </label>
+                    <input name="purchaseNo" type="text" class="form-control {{ $errors->has('purchaseNo') ? 'is-invalid':'' }}" placeholder="Masukkan Purchase Order Number">
+                    @error('purchaseNo')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" value="Confirm">
+                </div>
+            </form>
+        </div>
+        @endif
     </div>
 </div>
 

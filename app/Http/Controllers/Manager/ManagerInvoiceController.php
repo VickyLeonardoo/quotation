@@ -6,13 +6,18 @@ use App\Models\Cv;
 use Carbon\Carbon;
 use App\Models\Invoice;
 use App\Models\Quotation;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class ManagerInvoiceController extends Controller
 {
     public function show(){
-        return view('manager.invoice.index');
+        return view('manager.invoice.index',[
+            'draftCount' => Invoice::whereIn('status',['0','1','5'])->where('is_archive','0')->count(),
+            'confCount' => Invoice::whereIn('status',['2','3','4'])->where('is_archive','0')->count(),
+            'archiveCount' => Invoice::where('is_archive','1')->count(),
+        ]);
     }
 
     public function showDraft(){
@@ -53,6 +58,33 @@ class ManagerInvoiceController extends Controller
             'status' => '5'
         ]);
         return redirect()->route('manager.invoice.draft')->with('success','Invoice berhasil ditolak');
+    }
+
+    public function invoiceArchive(){
+        $years = Invoice::select(DB::raw('DISTINCT YEAR(tglInvoice) as year'))
+                        ->orderBy('year', 'desc')
+                        ->paginate(12);
+        return view('manager.invoice.archive.index', ['years' => $years]);
+    }
+
+    public function yearArchive(Request $request, $year){
+        $invoiceYears = Invoice::whereYear('tglInvoice', $year)->where('is_archive','1')->get();
+
+        if($request["mulai"] == null) {
+            $request["mulai"] = $request["akhir"];
+        }
+
+        if($request["akhir"] == null) {
+            $request["akhir"] = $request["mulai"];
+        }
+
+        if ($request["mulai"] && $request["akhir"]) {
+            $invoiceYears = Invoice::whereBetween('tglInvoice', [$request["mulai"], $request["akhir"]])->get();
+        }
+        return view('manager.invoice.archive.archiveYear',[
+            'invoices' => $invoiceYears,
+            'year' => $year,
+        ]);
     }
 
 }

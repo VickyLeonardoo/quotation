@@ -6,12 +6,17 @@ use Carbon\Carbon;
 use App\Models\Invoice;
 use App\Models\Delivery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class ManagerDeliveryController extends Controller
 {
     public function index(){
-        return view('manager.delivery.index');
+        return view('manager.delivery.index',[
+            'draftCount' => Delivery::where('status','0')->where('is_archive' ,'0')->count(),
+            'confCount' => Delivery::where('status','1')->where('is_archive' ,'0')->count(),
+            'archiveCount' => Delivery::where('is_archive' ,'1')->count(),
+        ]);
     }
 
     public function showDraft(){
@@ -102,5 +107,32 @@ class ManagerDeliveryController extends Controller
         }else{
             return redirect()->back()->with('error','Status delivery sudah confirmed, tidak dapat dihapus');
         }
+    }
+
+    public function deliveryArchive(){
+        $years = Delivery::select(DB::raw('DISTINCT YEAR(tglDelivery) as year'))
+                        ->orderBy('year', 'desc')
+                        ->paginate(12);
+        return view('manager.delivery.archive.index', ['years' => $years]);
+    }
+
+    public function yearArchive(Request $request, $year){
+        $deliveryYears = Delivery::whereYear('tglDelivery', $year)->where('is_archive','1')->get();
+
+        if($request["mulai"] == null) {
+            $request["mulai"] = $request["akhir"];
+        }
+
+        if($request["akhir"] == null) {
+            $request["akhir"] = $request["mulai"];
+        }
+
+        if ($request["mulai"] && $request["akhir"]) {
+            $deliveryYears = Delivery::whereBetween('tglDelivery', [$request["mulai"], $request["akhir"]])->get();
+        }
+        return view('manager.delivery.archive.archiveYear',[
+            'deliveries' => $deliveryYears,
+            'year' => $year,
+        ]);
     }
 }

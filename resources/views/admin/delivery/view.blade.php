@@ -20,7 +20,7 @@
                     Selesai
                 </a>
                 @endif --}}
-                <a href="{{ route('admin.invoice.print',$do->id) }}" target="_blank" class="btn btn-primary ml-2">
+                <a href="{{ route('admin.delivery.print',$do->id) }}" target="_blank" class="btn btn-primary ml-2">
                    <i class="fas fa-print"></i> Print
                 </a>
             </div>

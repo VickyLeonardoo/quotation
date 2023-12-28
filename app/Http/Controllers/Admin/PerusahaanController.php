@@ -37,6 +37,9 @@ class PerusahaanController extends Controller
             'provinsi' => 'required',
             'alamat' => 'required',
             'pic' => 'required',
+            'pic2' => 'required',
+            'pic3' => 'required',
+            'pic4' => 'required',
         ],[
             'kode.required' => 'Kode Perusahaan Wajib Diisi',
             'nama.required' => 'Nama Perusahaan Wajib Diisi',
@@ -72,8 +75,31 @@ class PerusahaanController extends Controller
             'slug' => $request->slug,
             'pic' => $request->pic,
             'slug' => $slug,
-        ];
+            'pic2' => $request->pic2,
+            'pic3' => $request->pic3,
+            'pic4' => $request->pic4,
 
+        ];
+        if ($request->cekPerusahaan == True) {
+            $data['c_nama'] = $request->nama;
+            $data['c_alamat'] = $request->alamat;
+            $data['c_jalan1'] = $request->jalan1;
+            $data['c_jalan2'] = $request->jalan2;
+            $data['c_pos'] = $request->kodePos;
+        }else{
+        $request->validate([
+            'c_nama' => 'required',
+            'c_alamat' => 'required',
+            'c_jalan1' => 'required',
+            'c_jalan2' => 'required',
+            'c_pos' => 'required',
+        ]);
+            $data['c_nama'] = $request->c_nama;
+            $data['c_alamat'] = $request->c_alamat;
+            $data['c_jalan1'] = $request->c_jalan1;
+            $data['c_jalan2'] = $request->c_jalan2;
+            $data['c_pos'] = $request->c_pos;
+        }
         Perusahaan::create($data);
         return redirect()->back()->with('success','Data Perusahaan berhasil ditambahkan');
     }
@@ -123,6 +149,14 @@ class PerusahaanController extends Controller
             'slug' => $request->slug,
             'pic' => $request->pic,
             'slug' => $slug,
+            'c_nama' => $request->c_nama,
+            'c_alamat' => $request->c_alamat,
+            'c_jalan1' => $request->c_jalan1,
+            'c_jalan2' => $request->c_jalan2,
+            'c_pos' => $request->c_pos,
+            'pic2' => $request->pic2,
+            'pic3' => $request->pic3,
+            'pic4' => $request->pic4,
         ];
 
         $perusahaan->update($data);

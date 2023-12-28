@@ -137,13 +137,95 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="form-group">
-                            <label for="pic">Person in Charge (PIC)*:</label>
-                            <input type="text" class="form-control {{ $errors->has('pic') ? 'is-invalid' : '' }}"
-                                name="pic" placeholder="Masukkan Nama PIC" value="{{ $perusahaan->pic }}">
-                            @error('pic')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pic">Person in Charge (Quotation)*:</label>
+                                    <input type="text" class="form-control {{ $errors->has('pic') ? 'is-invalid' : '' }}"
+                                        name="pic" placeholder="Masukkan Nama PIC" value="{{ $perusahaan->pic }}">
+                                    @error('pic')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pic">Person in Charge (Invoice)*:</label>
+                                    <input type="text" class="form-control {{ $errors->has('pic2') ? 'is-invalid' : '' }}"
+                                        name="pic2" placeholder="Masukkan Nama PIC" value="{{ $perusahaan->pic2 }}">
+                                    @error('pic2')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pic">Person in Charge (PIC)*:</label>
+                                    <input type="text" class="form-control {{ $errors->has('pic3') ? 'is-invalid' : '' }}"
+                                        name="pic3" placeholder="Masukkan Nama PIC" value="{{ $perusahaan->pic3 }}">
+                                    @error('pic3')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pic">Person in Charge (PIC)*:</label>
+                                    <input type="text" class="form-control {{ $errors->has('pic4') ? 'is-invalid' : '' }}"
+                                        name="pic4" placeholder="Masukkan Nama PIC" value="{{ $perusahaan->pic4 }}">
+                                    @error('pic4')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row my-special-form">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Nama Perusahaan (Pusat)</label>
+                                    <input type="text" name="c_nama" class="form-control {{ $errors->has('c_nama') ? 'is-invalid':'' }}" value="{{ $perusahaan->c_nama }}" placeholder="Masukkan Nama Perusahaan (Pusat)">
+                                    @error('c_nama')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Alamat Perusahaan (Pusat)</label>
+                                    <input type="text" name="c_alamat" class="form-control {{ $errors->has('c_alamat') ? 'is-invalid':'' }}" value="{{ $perusahaan->c_alamat }}" placeholder="Masukkan Alamat Perusahaan (Pusat)">
+                                    @error('c_alamat')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Jalan 1 Perusahaan (Pusat)</label>
+                                    <input type="text" name="c_jalan1" class="form-control {{ $errors->has('c_jalan1') ? 'is-invalid':'' }}" value="{{ $perusahaan->c_jalan1 }}" placeholder="Masukkan Jalan 1 Perusahaan (Pusat)">
+                                    @error('c_jalan1')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Jalan 2 Perusahaan (Pusat)</label>
+                                    <input type="text" name="c_jalan2" class="form-control {{ $errors->has('c_jalan2') ? 'is-invalid':'' }}" value="{{ $perusahaan->c_jalan2 }}" placeholder="Masukkan Jalan 2 Perusahaan (Pusat)">
+                                    @error('c_jalan2')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Kode Pos Perusahaan (Pusat)</label>
+                                    <input type="text" name="c_pos" class="form-control {{ $errors->has('c_pos') ? 'is-invalid':'' }}" value="{{ $perusahaan->c_pos }}" placeholder="Masukkan Pos Perusahaan (Pusat)">
+                                    @error('c_pos')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-info" value="Simpan">

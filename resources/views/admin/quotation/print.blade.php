@@ -16,10 +16,10 @@
         }
 
         .namaPerusahaan {
-            font-size: 56px;
+            font-size: 48px;
             margin: -2px;
             color: #ff0000;
-            font-family: Al;
+            font-family: 'Algerian';
         }
 
         .fixture {

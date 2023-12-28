@@ -168,7 +168,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Quotation No</th>
-                                        <th>Progres</th>
+                                        {{-- <th>Progres</th> --}}
                                         <th>#</th>
                                     </tr>
                                 </thead>
@@ -177,7 +177,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $project->quotation->quotationNo }}</td>
-                                        <td>{{ $project->logbook->last()->persentase }}%</td>
+                                        {{-- <td>{{ $project->logbook->last()->persentase }}%</td> --}}
                                         <td><a href="{{ url('admin/project-ongoing/'.$project->id.'/edit') }}">Periksa</a></td>
                                     </tr>
                                     @endforeach

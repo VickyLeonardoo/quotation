@@ -39,8 +39,20 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $project->quotation->quotationNo }}</td>
                                     <td>{{ $project->nama }}</td>
-                                    <td>{{ Carbon\Carbon::parse($project->tglMulai)->isoFormat('DD MMMM YYYY') }}</td>
-                                    <td>{{ Carbon\Carbon::parse($project->tglSelesai)->isoFormat('DD MMMM YYYY') }}</td>
+                                    <td>
+                                        @if ($project->tglMulai)
+                                        {{ Carbon\Carbon::parse($project->tglMulai)->isoFormat('DD MMMM YYYY') }}
+                                        @else
+                                        -
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($project->tglSelesai)
+                                        {{ Carbon\Carbon::parse($project->tglSelesai)->isoFormat('DD MMMM YYYY') }}
+                                        @else
+                                        -
+                                        @endif
+                                    </td>
                                     <td>
                                         @if ($project->status == 0)
                                             <div class="badge bg-info">Dalam Pengerjaan</div>

@@ -89,7 +89,7 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/quotation/{id}/view', 'viewQto')->name('admin.quotation.view');
                 Route::get('/quotation-draft/{id}/draft', 'draftQto')->name('admin.quotation.set.draft');
                 Route::get('/quotation-draft/{id}/penging', 'pendingQto')->name('admin.quotation.set.pending');
-                Route::get('/quotation-draft/{id}/confirm', 'confirmQto')->name('admin.quotation.set.confirm');
+                Route::post('/quotation-draft/{id}/confirm', 'confirmQto')->name('admin.quotation.set.confirm');
                 Route::get('/quotation-draft/{id}/selesai', 'doneQto')->name('admin.quotation.set.selesai');
                 Route::get('/quotation-draft/{id}/archive', 'archiveQto')->name('admin.quotation.set.archive');
                 Route::get('/quotation-draft/{id}/reject', 'rejectQto')->name('admin.quotation.set.reject');
@@ -155,6 +155,7 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::post('/delivery-draft/{id}/edit', 'update')->name('admin.delivery.draft.update');
                 Route::get('/deliver-draft/{id}/delete', 'destroy')->name('admin.delivery.draft.delete');
                 Route::get('/delivery-draft/{id}/view', 'viewDelivery')->name('admin.delivery.view');
+                Route::get('/delivery/{id}/print', 'print')->name('admin.delivery.print');
 
                 Route::get('/delivery/archive', 'deliveryArchive')->name('admin.delivery.archive');
                 Route::get('/delivery/archive/{year}', 'yearArchive')->name('admin.delivery.archive.year');
@@ -213,6 +214,9 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/quotation-confirmed', 'showConf')->name('manager.quotation.confirmed');
                 Route::get('/quotation/{id}/print', 'print')->name('manager.quotation.print');
                 Route::post('/quotation/{id}/reject', 'reject')->name('manager.quotation.reject');
+
+                Route::get('/quotation/archive', 'quotationArchive')->name('manager.quotation.archive');
+                Route::get('/quotation/archive/{year}', 'yearArchive')->name('manager.quotation.archive.year');
             });
 
             Route::controller(ManagerInvoiceController::class)->group(function () {
@@ -224,7 +228,8 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/invoice/{id}/print', 'print')->name('manager.invoice.print');
                 Route::get('/invoice-confirmed', 'showConf')->name('manager.invoice.confirmed');
                 Route::get('/invoice-draft/{id}/tolak', 'rejectInv')->name('manager.invoice.set.reject');
-
+                Route::get('/invoice/archive', 'invoiceArchive')->name('manager.invoice.archive');
+                Route::get('/invoice/archive/{year}', 'yearArchive')->name('manager.invoice.archive.year');
             });
 
             Route::controller(ManagerProjectController::class)->group(function () {
@@ -246,6 +251,9 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/delivery-draft/{id}/edit', 'edit')->name('manager.delivery.draft.edit');
                 Route::post('/delivery-draft/{id}/edit', 'update')->name('manager.delivery.draft.update');
                 Route::get('/deliver-draft/{id}/delete', 'destroy')->name('manager.delivery.draft.delete');
+
+                Route::get('/delivery/archive', 'deliveryArchive')->name('manager.delivery.archive');
+                Route::get('/delivery/archive/{year}', 'yearArchive')->name('manager.delivery.archive.year');
             });
         });
     });

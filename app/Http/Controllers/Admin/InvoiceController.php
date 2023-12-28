@@ -208,6 +208,4 @@ class InvoiceController extends Controller
         ]);
     }
 
-
-
 }
