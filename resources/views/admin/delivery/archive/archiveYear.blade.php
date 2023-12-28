@@ -66,6 +66,7 @@
                                 <td>{{ Carbon\Carbon::parse($do->tglQuotation)->format('d-M-Y') }}</td>
                                 <td>
                                     <a href="{{ route('admin.delivery.view',$do->id) }}" title="Quotation" class="btn btn-info"><i class="fas fa-file-invoice"></i></a>
+                                    <a href="{{ route('admin.delivery.unarchive',$do->id) }}" title="Unarchive" class="btn btn-secondary"><i class="fas fa-archive"></i></a>
                                 </td>
                             </tr>
                             @endforeach

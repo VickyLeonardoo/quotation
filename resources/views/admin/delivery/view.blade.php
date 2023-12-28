@@ -11,15 +11,11 @@
                 <h4 class="page-title">Invoice #{{ $do->deliveryNo }}</h4>
             </div>
             <div class="col-auto">
-                {{-- @if ($inv->status == 0)
-                <a href="{{ route('admin.invoice.set.confirm',$inv->id) }}" class="btn btn-secondary ml-2">
-                    Konfirmasi
-                </a>
-                @elseif ($inv->status == 1)
-                <a href="{{ route('admin.invoice.set.selesai',$inv->id) }}" class="btn btn-success ml-2">
-                    Selesai
-                </a>
-                @endif --}}
+                @if ($do->status == 0)
+                    <a href="{{ route('admin.delivery.confirm',$do->id) }}" class="btn btn-info">Konfirmasi</a>
+                @elseif ($do->status == 1)
+                    <a href="{{ route('admin.delivery.done',$do->id) }}" class="btn btn-success">Selesai</a>
+                @endif
                 <a href="{{ route('admin.delivery.print',$do->id) }}" target="_blank" class="btn btn-primary ml-2">
                    <i class="fas fa-print"></i> Print
                 </a>
@@ -146,7 +142,7 @@
                 <h5>Status:
                     @if ($do->status == 0)
                     <span class="badge badge-info">Draft</span>
-                    @elseif ($inv->status == 1)
+                    @elseif ($do->status == 1)
                         Konfirmasi
                     @else
                     <span class="badge badge-success">Selesai</span>

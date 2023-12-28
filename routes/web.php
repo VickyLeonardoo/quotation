@@ -106,6 +106,7 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/quotation/{id}/mail', 'sendQuotationMail')->name('admin.quotation.email');
 
                 Route::get('/quotation/archive', 'quotationArchive')->name('admin.quotation.archive');
+                Route::get('/quotation/{id}/unarchive', 'unarchiveQto')->name('admin.quotation.unarchive');
                 Route::get('/quotation/archive/{year}', 'yearArchive')->name('admin.quotation.archive.year');
 
             });
@@ -128,6 +129,7 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/invoice/{id}/edit', 'edit')->name('admin.invoice.edit');
                 Route::post('/invoice/{id}/update', 'update')->name('admin.invoice.draft.update');
 
+                Route::get('/invoice/{id}/unarchive', 'unarchiveInv')->name('admin.invoice.unarchive');
                 Route::get('/invoice/archive', 'invoiceArchive')->name('admin.invoice.archive');
                 Route::get('/invoice/archive/{year}', 'yearArchive')->name('admin.invoice.archive.year');
             });
@@ -157,6 +159,9 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/delivery-draft/{id}/view', 'viewDelivery')->name('admin.delivery.view');
                 Route::get('/delivery/{id}/print', 'print')->name('admin.delivery.print');
 
+                Route::get('/delivery-draft/{id}/confirm', 'confirmDo')->name('admin.delivery.confirm');
+                Route::get('/delivery-draft/{id}/done', 'doneDo')->name('admin.delivery.done');
+                Route::get('/delivery/{id}/unarchive', 'unarchiveDo')->name('admin.delivery.unarchive');
                 Route::get('/delivery/archive', 'deliveryArchive')->name('admin.delivery.archive');
                 Route::get('/delivery/archive/{year}', 'yearArchive')->name('admin.delivery.archive.year');
 

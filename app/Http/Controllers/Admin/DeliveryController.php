@@ -29,7 +29,7 @@ class DeliveryController extends Controller
 
     public function showConf(){
         return view('admin.delivery.viewDelivery',[
-            'deliveries' => Delivery::where('status', '1')->where('is_archive', false)->get(),
+            'deliveries' => Delivery::whereIn('status',['1', '2'])->where('is_archive', false)->get(),
         ]);
     }
 
@@ -118,6 +118,20 @@ class DeliveryController extends Controller
         ]);
     }
 
+    public function confirmDo(Delivery $id){
+        $id->update([
+            'status' => '1'
+        ]);
+        return redirect()->route('admin.delivery.confirmed')->with('success','Delivery Order berhasil dikonfirmasi');
+    }
+
+    public function doneDo(Delivery $id){
+        $id->update([
+            'status' => '2'
+        ]);
+        return redirect()->route('admin.delivery.confirmed')->with('success','Delivery Order berhasil dikonfirmasi');
+    }
+
     public function archiveDelivery(Delivery $id){
         if ($id->status != 2) {
             return redirect()->back()->with('error', 'Invoice hanya dapat di arsipkan jika sudah selesai');
@@ -127,6 +141,13 @@ class DeliveryController extends Controller
             ]);
             return redirect()->back()->with('success', 'Invoice berhasil di arsipkan');
         }
+    }
+
+    public function unarchiveDo(Delivery $id){
+        $id->update([
+            'is_archive' => 0
+        ]);
+        return redirect()->back()->with('success', 'Invoice berhasil di unarsip');
     }
 
     public function deliveryArchive(){

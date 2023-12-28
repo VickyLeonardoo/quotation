@@ -169,10 +169,14 @@ class QuotationController extends Controller
 
     public function doneQto($id){
         $qto = Quotation::findOrFail($id);
-        $qto->update([
-            'status' => '4',
-        ]);
-        return redirect()->back()->with('success','Status Quotation berhasil menjadi Selesai');
+        if ($qto->project->status == 0) {
+            return redirect()->back()->with('error','Project belum selesai, selesaikan terlebih dahulu status projectt');
+        }else{
+            $qto->update([
+                'status' => '4',
+            ]);
+            return redirect()->back()->with('success','Status Quotation berhasil menjadi Selesai');
+        }
     }
 
     public function edit(Quotation $id){
@@ -239,7 +243,7 @@ class QuotationController extends Controller
 
     public function destroy(Quotation $id){
         try {
-            if ($id->status == 1) {
+            if ($id->status == 1 || $id->status == 2 || $id->status == 3) {
                 return redirect()->back()->with('error', 'Pending Quotation tidak dapat dihapus. Silahkan set draft terlebih dahulu.');
             } else {
                 $id->delete();
@@ -265,6 +269,14 @@ class QuotationController extends Controller
             return redirect()->back()->with('success', 'Quotation berhasil di arsipkan');
 
         }
+    }
+
+    public function unarchiveQto(Quotation $id){
+        $id->update([
+            'is_archive' => 0
+        ]);
+        return redirect()->back()->with('success', 'Quotation berhasil di unarsip');
+
     }
 
     public function rejectQto(Quotation $id){
@@ -313,6 +325,8 @@ class QuotationController extends Controller
         ]);
         return redirect()->back()->withToastSuccess('Email Berhasil Dikirim');
     }
+
+
 
     public function quotationArchive(){
         // Mengambil semua tahun unik dari kolom 'tglQuotation' dengan pagination 10 item per halaman

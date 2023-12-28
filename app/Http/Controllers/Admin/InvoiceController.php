@@ -181,6 +181,13 @@ class InvoiceController extends Controller
         }
     }
 
+    public function unarchiveInv(Invoice $id){
+        $id->update([
+            'is_archive' => 0
+        ]);
+        return redirect()->back()->with('success', 'Invoice berhasil di unarsip');
+    }
+
     public function invoiceArchive(){
         $years = Invoice::select(DB::raw('DISTINCT YEAR(tglInvoice) as year'))
                         ->orderBy('year', 'desc')
