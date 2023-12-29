@@ -13,7 +13,7 @@
                         </div>
                         <div class="card-category"></div>
                     </div>
-                    <form action="" method="POST"></form>
+                    <form action="{{ route('admin.karyawan.update',$user->id) }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="">Name</label>
@@ -21,11 +21,15 @@
                     </div>
                     <div class="form-group">
                         <label for="">Email</label>
-                        <input type="email" class="form-control" name="email" placeholder="Masukkan Nama Produk" value="{{ $user->email }}">
+                        <input type="text" class="form-control" name="email" placeholder="Masukkan Nama Produk" value="{{ $user->email }}">
+                        @error('email')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-info" value="Simpan" >
                     </div>
+                </form>
                 </div>
             </div>
         </div>

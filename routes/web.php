@@ -76,6 +76,7 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/karyawan/create', 'create')->name('admin.karyawan.create');
                 Route::post('/karyawan', 'store')->name('admin.karyawan.store');
                 Route::get('/karyawan/{slug}/edit', 'edit')->name('admin.karyawan.edit');
+                Route::post('/karyawan/{slug}/update', 'update')->name('admin.karyawan.update');
                 Route::get('/karyawan/{id}/reset-password', 'resetPassword')->name('admin.karyawan.reset');
                 Route::get('/karyawan/{id}/delete', 'destroy')->name('admin.karyawan.delete');
             });
