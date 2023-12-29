@@ -53,21 +53,24 @@ class KaryawanController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'email' => 'required|unique:users,email',
-
-        ],[
+            'email' => 'required|email|unique:users,email,'.$user->id,
+        ], [
             'name.required' => 'Nama Wajib Diisi',
             'email.required' => 'Email Wajib Diisi',
+            'email.email' => 'Format Email tidak valid',
             'email.unique' => 'Email sudah terdaftar, silahkan ganti Email',
         ]);
+
         $data = [
             'name' => $request->name,
             'email' => $request->email,
             'slug' => Str::slug($request->name)
         ];
+
         $user->update($data);
         return redirect()->route('admin.karyawan')->with('success','Data Karyawan Berhasil diperbarui');
     }
+
 
     public function resetPassword($id){
         $karyawan = User::findOrFail($id);
