@@ -42,9 +42,6 @@
                     Set Pending
                 </a>
                 @elseif ($qto->status == 2)
-                <a href="{{ route('admin.quotation.set.draft',$qto->id) }}" class="btn btn-warning ml-2">
-                    Set Draft
-                </a>
                 <a href="{{ route('admin.quotation.set.reject',$qto->id) }}" class="btn btn-danger ml-2">
                     Reject
                 </a>

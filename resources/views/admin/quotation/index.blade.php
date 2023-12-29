@@ -4,6 +4,7 @@
 <div class="row justify-content-center">
     <div class="col-sm-6 col-md-3">
         <div class="card card-stats card-round">
+            <a href="{{ url('admin/quotation-draft') }}">
             <div class="card-body ">
                 <div class="row">
                     <div class="col-5">
@@ -19,6 +20,8 @@
                     </div>
                 </div>
             </div>
+        </a>
+
         </div>
     </div>
     <div class="col-sm-6 col-md-3">
