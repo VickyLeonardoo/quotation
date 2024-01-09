@@ -36,6 +36,11 @@ class ProjectController extends Controller
     }
 
     public function store(Request $request){
+        $request->validate([
+            'quotation_id' => 'required',
+        ],[
+            'quotation_id.required' => 'Quotation Wajib Diisi',
+        ]);
         $id = $request->quotation_id;
         $qto = Quotation::findOrFail($id);
         if ($qto->project) {
@@ -45,7 +50,6 @@ class ProjectController extends Controller
                 'quotation_id' => $id,
             ]);
             return redirect()->route('admin.project.ongoing.edit',$project->id)->with('success','Project Berhasil Dibuat, Lengkapi Formulir Project yang Tersedia');
-
         }
     }
 

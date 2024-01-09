@@ -42,6 +42,9 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                @error('quotation_id')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group">
