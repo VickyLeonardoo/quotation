@@ -9,8 +9,8 @@
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                         <span>
-                            Hizrian
-                            <span class="user-level">Administrator</span>
+                            {{ auth()->user()->name }}
+                            <span class="user-level">Admin</span>
                             <span class="caret"></span>
                         </span>
                     </a>
@@ -19,7 +19,7 @@
                     <div class="collapse in" id="collapseExample">
                         <ul class="nav">
                             <li>
-                                <a href="#edit">
+                                <a href="{{ Url('admin/profile') }}">
                                     <span class="link-collapse">Edit Profile</span>
                                 </a>
                             </li>

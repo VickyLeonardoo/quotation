@@ -154,11 +154,11 @@ class InvoiceController extends Controller
 
     public function destroy(Invoice $id){
         try {
-            if ($id->status == 1) {
+            if ($id->status == 1 || $id->status == 2 || $id->status == 3 || $id->status == 4) {
                 return redirect()->back()->with('error', 'Pending Invoice tidak dapat dihapus. Silahkan set draft terlebih dahulu.');
             } else {
                 $id->delete();
-                return redirect()->back()->with('success', 'Quotation berhasil dihapus');
+                return redirect()->back()->with('success', 'Invoice berhasil dihapus');
             }
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];

@@ -105,7 +105,7 @@
     <script>
         $.notify({
             // options
-            icon: 'flaticon-check',
+            // icon: 'flaticon-check',
             message: 'Login Berhasil'
         }, {
             // settings

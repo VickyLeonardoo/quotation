@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DeliveryController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\QuotationController;
 use App\Http\Controllers\Admin\PerusahaanController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\DashboardController;
@@ -47,6 +48,9 @@ Route::get('/logout', [LoginController::class, 'logout']);
 Route::group(['middleware' => ['auth:user']], function () {
     Route::group(['middleware' => ['cek_login:1']], function () {
         Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/admin/profile',[ProfileController::class,'index'])->name('admin.profile');
+        Route::post('/admin/profile',[ProfileController::class,'update'])->name('admin.profile.update');
+        Route::post('/admin/profile/password',[ProfileController::class,'password_update'])->name('admin.profile.password');
         Route::prefix('admin')->group(function () {
             Route::controller(CvController::class)->group(function () {
                 Route::get('/cv', 'show')->name('admin.cv');

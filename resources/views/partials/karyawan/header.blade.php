@@ -174,7 +174,7 @@
 					</ul>
 				</nav>
 				<div class="copyright text-white ml-auto">
-					2018, made with <i class="fa fa-heart heart text-danger"></i> by <a class=" text-white" href="#">Yesi</a>
+					2024, made with <i class="fa fa-heart heart text-danger"></i> by <a class=" text-white" href="#">Yesi</a>
 				</div>
 			</div>
 		</footer>

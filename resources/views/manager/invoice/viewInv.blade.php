@@ -32,7 +32,7 @@
                                     <td>{{ Carbon\Carbon::parse($inv->quotation->tglQuotation)->format('d-M-Y') }}</td>
                                     <td>
                                         <a href="{{ route('manager.invoice.view',$inv->id) }}" title="Quotation" class="btn btn-info"><i class="fas fa-file-invoice"></i></a>
-                                        <button type="button" class="btn btn-danger" title="Hapus" id="alert_demo_8"><i class="fas fa-trash"></i></button>
+                                        {{-- <button type="button" class="btn btn-danger" title="Hapus" id="alert_demo_8"><i class="fas fa-trash"></i></button> --}}
                                     </td>
                                 </tr>
                                 @endforeach

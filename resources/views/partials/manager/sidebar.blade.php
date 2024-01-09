@@ -9,8 +9,8 @@
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                         <span>
-                            Hizrian
-                            <span class="user-level">Administrator</span>
+                            {{ auth()->user()->name }}
+                            <span class="user-level">Manager</span>
                             <span class="caret"></span>
                         </span>
                     </a>

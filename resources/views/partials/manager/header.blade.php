@@ -96,8 +96,8 @@
 									<div class="user-box">
 										<div class="avatar-lg"><img src="{{ asset('atlantis') }}/assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
 										<div class="u-text">
-											<h4>Hizrian</h4>
-											<p class="text-muted">hello@example.com</p><a href="{{ url('logout') }}" class="btn btn-xs btn-secondary btn-sm">Logout</a>
+											<h4>{{ auth()->user()->name }}</h4>
+											<p class="text-muted"></p><a href="{{ url('logout') }}" class="btn btn-xs btn-secondary btn-sm">Logout</a>
 										</div>
 									</div>
 								</li>

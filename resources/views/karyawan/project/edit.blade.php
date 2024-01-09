@@ -70,10 +70,12 @@
                     <h4>Log Pengerjaan</h4>
                 </div>
                 <div class="col-6">
+                    @if ($project->status == 0)
                     <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal"
                         data-target="#exampleModalCenter">
                         Tambah
                     </button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -97,7 +99,11 @@
                                 <td>{{ $log->deskripsi }}</td>
                                 <td>{{ $log->persentase }}%</td>
                                 <td style="width: 5%">
+                                    @if ($project->status == 0)
                                     <a href="{{ route('karyawan.project.ongoing.delete.lobgook',$log->id) }}" class="btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                    @else
+                                    -
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -125,11 +131,18 @@
                                     Kemajuan Proyek:
                                 </b>
                             </div>
+
+
                             <div class="col-sm-10">
                                 <div class="form-group">
-                                    <input type="number"
+                                    <div class="input-group">
+                                        <input type="number"
                                         class="form-control {{ $errors->has('persentase') ? 'is-invalid' : '' }}"
-                                        name="persentase" value="{{ old('persentase') }}">
+                                        name="persentase" value="{{ old('persentase') }}" placeholder="Masukkan persentase contoh: 30">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
                                     @error('persentase')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
