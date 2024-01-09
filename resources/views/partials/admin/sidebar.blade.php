@@ -80,7 +80,7 @@
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
                     </span>
-                    <h4 class="text-section">Invoce</h4>
+                    <h4 class="text-section">Invoice</h4>
                 </li>
                 <li class="nav-item {{ Route::is('admin.invoice.draft*') ? 'active':'' }}">
                     <a href="{{ url('admin/invoice-draft') }}">
@@ -92,24 +92,6 @@
                     <a href="{{ url('admin/invoice-confirmed') }}">
                         <i class="far fa-building"></i>
                         <p>Confirmed Invoice</p>
-                    </a>
-                </li>
-                <li class="nav-section ">
-                    <span class="sidebar-mini-icon">
-                        <i class="fa fa-ellipsis-h"></i>
-                    </span>
-                    <h4 class="text-section">Project</h4>
-                </li>
-                <li class="nav-item {{ Route::is('admin.project.ongoing*') ? 'active':'' }}">
-                    <a href="{{ url('admin/project-ongoing') }}">
-                        <i class="fas fa-file-contract"></i>
-                        <p>Ongoing Project</p>
-                    </a>
-                </li>
-                <li class="nav-item {{ Route::is('admin.project.done*') ? 'active':'' }}">
-                    <a href="{{ url('admin/project-done') }}">
-                        <i class="far fa-building"></i>
-                        <p>Done Project</p>
                     </a>
                 </li>
                 <li class="nav-section ">
@@ -128,6 +110,24 @@
                     <a href="{{ url('admin/delivery-confirmed') }}">
                         <i class="far fa-building"></i>
                         <p>Confirmed Delivery</p>
+                    </a>
+                </li>
+                <li class="nav-section ">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                    <h4 class="text-section">Project</h4>
+                </li>
+                <li class="nav-item {{ Route::is('admin.project.ongoing*') ? 'active':'' }}">
+                    <a href="{{ url('admin/project-ongoing') }}">
+                        <i class="fas fa-file-contract"></i>
+                        <p>Ongoing Project</p>
+                    </a>
+                </li>
+                <li class="nav-item {{ Route::is('admin.project.done*') ? 'active':'' }}">
+                    <a href="{{ url('admin/project-done') }}">
+                        <i class="far fa-building"></i>
+                        <p>Done Project</p>
                     </a>
                 </li>
                 <li class="nav-section ">
