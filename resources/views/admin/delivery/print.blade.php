@@ -244,15 +244,15 @@
                 Fax
             </td>
             <td style="width: 44%;  border: none;">:
-                Panasonic Industrial Devices Singapore Pte. Ltd <br>
-                &nbsp;&nbsp;3 Bedok South Road Singapore 469269 <br>
+                {{ $do->invoice->quotation->perusahaan->c_nama }} <br>
+                &nbsp;&nbsp;{{ $do->invoice->quotation->perusahaan->c_alamat }} <br>
 
-                : Panasonic Industrial Devices Batam <br>
-                &nbsp;&nbsp;Puri Industri Park 2000, Batam <br>
-                &nbsp;&nbsp;Kelurahan Baloi Permai, 29463,Batam <br>
+                : {{ $do->invoice->quotation->perusahaan->nama }} <br>
+                &nbsp;&nbsp;{{ $do->invoice->quotation->perusahaan->alamat }} <br>
+                &nbsp;&nbsp;{{ $do->invoice->quotation->perusahaan->jalan1 }}, {{ $do->invoice->quotation->perusahaan->kodePos }},{{ $do->invoice->quotation->perusahaan->kota }} <br>
 
-                : Ms. Tiona/MS. Susmaida <br>
-                : Ms. Tuty/MS. Chong <br>
+                : {{ $do->invoice->quotation->perusahaan->pic1 }}/{{ $do->invoice->quotation->perusahaan->pic2 }} <br>
+                : {{ $do->invoice->quotation->perusahaan->pic3 }}/{{ $do->invoice->quotation->perusahaan->pic4 }} <br>
                 : 778465050 <br>
                 : -
             </td>
@@ -269,7 +269,7 @@
             <strong>
                 : {{ $do->deliveryNo }} <br><br>
                 : {{ $do->tglDelivery }} <br><br>
-                : {{ $do->purchaseNo }} <br><br>
+                : {{ $do->invoice->quotation->purchaseNo }} <br><br>
                 : DO2212122 <br><br>
                 <br>
             </strong>

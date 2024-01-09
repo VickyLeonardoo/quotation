@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice</title>
+    <title>Quotation</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -235,18 +235,19 @@
             <td style="width: 15%; border-top: 2px solid black; border-bottom: 2px solid black; border-right: none;">
                 NO <br>
                 DATE <br>
-                PAYMENT <br>
-                VALIDITY <br>
-                DELIVERY <br>
                 WARRANTY <br>
+                <br>
+                <br>
+                <br>
             </td>
             <td style="width: 19%;border-top: 2px solid black; border-bottom: 2px solid black; border-left: none;">
                 : {{ $qto->quotationNo }} <br>
                 : {{ $qto->tglQuotation }}<br>
-                : - <br>
-                : - <br>
-                : - <br>
-                : 4 Months <br>
+                : {{ $qto->garansi }} {{ $qto->periode }} <br>
+                <br>
+                <br>
+                <br>
+
             </td>
         </tr>
 

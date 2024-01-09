@@ -43,10 +43,8 @@
                                     <td>
                                         @if ($project->status == 0)
                                         <a href="{{ route('manager.project.ongoing.edit',$project->id) }}" title="Quotation" class="btn btn-info"><i class="fas fa-edit"></i></a>
-                                        <button type="button" class="btn btn-danger" title="Hapus" id="alert_demo_8"><i class="fas fa-trash"></i></button>
                                         @else
                                         <a href="{{ route('manager.project.done.edit',$project->id) }}" title="Quotation" class="btn btn-info"><i class="fas fa-edit"></i></a>
-                                        <button type="button" class="btn btn-danger" title="Hapus" id="alert_demo_8"><i class="fas fa-trash"></i></button>
                                         @endif
 
                                     </td>

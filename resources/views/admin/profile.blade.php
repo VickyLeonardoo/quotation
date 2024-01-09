@@ -1,7 +1,6 @@
 @extends('partials.admin.header')
 @section('title', 'Profile')
 @section('content')
-
     <div class="row">
         <div class="col-md-8">
             <div class="card card-with-nav">
@@ -25,14 +24,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group form-group-default">
                                             <label>Name</label>
-                                            <input type="text" class="form-control" name="name" placeholder="Name"
+                                            <input type="text" autocomplete="off" class="form-control" name="name" placeholder="Name"
                                                 value="{{ $user->name }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group form-group-default">
                                             <label>Email</label>
-                                            <input type="text" class="form-control" readonly name="email"
+                                            <input type="text" autocomplete="off" class="form-control" readonly name="email"
                                                 placeholder="Name" value="{{ $user->email }}">
                                         </div>
                                     </div>
@@ -59,7 +58,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group form-group-default">
                                             <label>Phone</label>
-                                            <input type="text" class="form-control"
+                                            <input type="text" autocomplete="off" class="form-control"
                                                 value="{{ $user->user_detail->noHp }}" name="noHp" placeholder="Phone">
                                         </div>
                                     </div>
@@ -68,7 +67,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group form-group-default">
                                             <label>Address</label>
-                                            <input type="text" class="form-control"
+                                            <input type="text"  autocomplete="off" class="form-control"
                                                 value="{{ $user->user_detail->alamat }}" name="alamat"
                                                 placeholder="Address">
                                         </div>
@@ -113,8 +112,6 @@
             </div>
         </div>
     </div>
-
-
 @endsection
 @section('js')
     <script>

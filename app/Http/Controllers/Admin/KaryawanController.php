@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\UserDetail;
 
 class KaryawanController extends Controller
 {
@@ -44,7 +45,10 @@ class KaryawanController extends Controller
             'role' => 2,
             'slug' => Str::slug($request->name)
         ];
-        User::create($data);
+        $user = User::create($data);
+        UserDetail::create([
+            'user_id' => $user->id,
+        ]);
         return redirect()->route('admin.karyawan')->with('success','Data Karyawan Berhasil Ditambahkan');
     }
 
