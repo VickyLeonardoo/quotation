@@ -19,7 +19,7 @@
                     <div class="collapse in" id="collapseExample">
                         <ul class="nav">
                             <li>
-                                <a href="#edit">
+                                <a href="{{ url('manager/profile') }}">
                                     <span class="link-collapse">Edit Profile</span>
                                 </a>
                             </li>

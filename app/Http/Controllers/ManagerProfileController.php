@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Karyawan;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class KaryawanProfileController extends Controller
+class ManagerProfileController extends Controller
 {
-    //
-
     public function index(){
         $id = auth()->user()->id;
 
         $user = User::with('user_detail')->findOrFail($id);
-        return view('karyawan.profile.index',[
+        // $user = User::findOrFail($id);
+        // return $user;
+        return view('manager.profile',[
             'user' => $user,
         ]);
     }

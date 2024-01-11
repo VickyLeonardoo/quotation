@@ -23,6 +23,7 @@ use App\Http\Controllers\Manager\ManagerPerusahaanController;
 use App\Http\Controllers\Manager\ManagerProdukController;
 use App\Http\Controllers\Manager\ManagerProjectController;
 use App\Http\Controllers\Manager\ManagerQuotationController;
+use App\Http\Controllers\ManagerProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -183,7 +184,9 @@ Route::group(['middleware' => ['auth:user']], function () {
 Route::group(['middleware' => ['auth:user']], function () {
     Route::group(['middleware' => ['cek_login:3']], function () {
         Route::get('/manager', [DashboardController::class, 'index'])->name('manager.dashboard');
-
+        Route::get('/manager/profile',[ManagerProfileController::class,'index'])->name('manager.profile');
+        Route::post('/manager/profile',[ManagerProfileController::class,'update'])->name('manager.profile.update');
+        Route::post('/manager/profile/password',[ManagerProfileController::class,'password_update'])->name('manager.profile.password');
         Route::prefix('manager')->group(function () {
             Route::controller(CvController::class)->group(function () {
                 Route::get('/cv', 'show')->name('manager.cv');
@@ -291,8 +294,8 @@ Route::group(['middleware' => ['auth:user']], function () {
 
             Route::controller(KaryawanProfileController::class)->group(function (){
                 Route::get('/profile','index')->name('karyawan.profile');
-                Route::post('/profile','updateProfile')->name('karyawan.update.profile');
-                Route::post('/profile/password','updatePassword')->name('karyawan.update.password');
+                Route::post('/profile','update')->name('karyawan.update.profile');
+                Route::post('/profile/password','password_update')->name('karyawan.update.password');
             });
 
 

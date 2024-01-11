@@ -99,7 +99,7 @@
                     Estimasi Pendapatan
                 </div>
                 <div class="card-body">
-                    {{ $totalPendapatan }}
+                    @currency($totalPendapatan)
                 </div>
             </div>
         </div>
