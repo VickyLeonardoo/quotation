@@ -28,8 +28,8 @@
                             <label for="">Invoice No</label>
                             <select name="invoice_id" class="form-control selectpicker" data-live-search="true">
                                 @foreach ($invoices as $inv)
-                                    <option value="{{ $inv->id }}">{{ $inv->quotation->quotationNo }} |
-                                        {{ $inv->quotation->perusahaan->nama }} | {{ $inv->invoiceNo }}</option>
+                                    <option value="{{ $inv->id }}">[{{ $inv->quotation->quotationNo }}] -
+                                        [{{ $inv->quotation->perusahaan->nama }}] - [{{ $inv->invoiceNo }}]</option>
                                 @endforeach
                             </select>
                             @error('quotation_id')
