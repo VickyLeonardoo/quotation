@@ -26,6 +26,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Invoice No</th>
+                                    <th>Quotation No</th>
                                     <th>Nama</th>
                                     <th>Tanggal</th>
                                     <th>Status</th>
@@ -37,6 +38,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $inv->invoiceNo }}</td>
+                                    <td>{{ $inv->quotation->quotationNo }}</td>
                                     <td>{{ $inv->quotation->perusahaan->nama }}</td>
                                     <td>{{ Carbon\Carbon::parse($inv->quotation->tglQuotation)->format('d-M-Y') }}</td>
                                     <td bgcolor="{{ $inv->status == 5 ? 'red':'' }}">
