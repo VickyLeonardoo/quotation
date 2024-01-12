@@ -11,8 +11,13 @@
             </div>
             @endif
             <div class="text-right">
+                @if ($project->is_archive == 1)
+                <button onclick="history.back()" class="btn btn-info">Kembali</button>
+                @else
                 <a href="{{ url('manager/project-ongoing') }}" class="btn btn-info"><i class="fas fa-arrow-left"></i>
                     Kembali</a>
+                @endif
+
             </div>
             <div class="card-category"></div>
         </div>
