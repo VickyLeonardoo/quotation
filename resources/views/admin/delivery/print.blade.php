@@ -270,7 +270,7 @@
                 : {{ $do->deliveryNo }} <br><br>
                 : {{ $do->tglDelivery }} <br><br>
                 : {{ $do->invoice->quotation->purchaseNo }} <br><br>
-                : DO2212122 <br><br>
+                : {{ $do->invoice->quotation->perusahaan->pic }} <br><br>
                 <br>
             </strong>
             </td>
