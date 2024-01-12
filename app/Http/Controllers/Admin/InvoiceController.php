@@ -207,7 +207,6 @@ class InvoiceController extends Controller
     }
 
     public function yearArchive(Request $request, $year){
-        return 'ee';
         $invoiceYears = Invoice::whereYear('tglInvoice', $year)->where('is_archive','1')->get();
 
         if($request["mulai"] == null) {
