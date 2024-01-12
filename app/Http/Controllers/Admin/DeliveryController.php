@@ -169,7 +169,7 @@ class DeliveryController extends Controller
         }
 
         if ($request["mulai"] && $request["akhir"]) {
-            $deliveryYears = Delivery::whereBetween('tglDelivery', [$request["mulai"], $request["akhir"]])->get();
+            $deliveryYears = Delivery::whereBetween('tglDelivery', [$request["mulai"], $request["akhir"]])->where('is_archive','1')->get();
         }
         return view('admin.delivery.archive.archiveYear',[
             'deliveries' => $deliveryYears,
