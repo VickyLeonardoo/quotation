@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice</title>
+    <title>Delivery Order</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,6 +20,8 @@
             margin: -2px;
             color: #ff0000;
             font-family: 'Algerian';
+            font-weight: bold;
+            ;
         }
 
         .fixture {
@@ -134,8 +136,21 @@
             font-size: 16px;
             font-family: 'Calibri';
             margin: 2px;
+            margin-top: 0.5cm;
         }
-
+        .kalimatPembuka1 {
+            font-size: 16px;
+            font-family: 'Calibri';
+            margin-left: 6cm;
+            position: absolute;
+            font-weight: bold;
+        }
+        .kalimatPembuka2 {
+            font-size: 16px;
+            font-family: 'Calibri';
+            margin: 2px;
+            font-weight: bold;
+        }
         .textPembuka {
             margin-top: 30px;
         }
@@ -209,185 +224,108 @@
         <h5 class="kiri">Nomor HP: 08123456789 | Email: info@perusahaan.com</h5>
     </header>
     <hr>
-    <H3 class="quotationTitle">INVOICE</H3>
-
-    <!-- <div class="grid-container">
-        <div class="grid-item grid-left">
-            <p class="penerima"><strong>To</strong></p>
-            <p class="penerima"><strong><br></strong></p>
-            <p class="penerima"><strong><br></strong></p>
-            <p class="penerima"><strong>Attn</strong></p>
-            <p class="penerima"><strong>Phone</strong></p>
-            <p class="penerima"><strong>Fax</strong></p>
-        </div>
-        <div class="grid-item grid-left2">
-            <p class="penerima">: PANASONIC INDUSTRIAL DEVICES SINGAPORE PTE. LTD.</p>
-            <p class="penerima"> &nbsp;&nbsp;Kepulauan Riau, Batam.</p>
-            <p class="penerima"> &nbsp;&nbsp;Jalan 1, Jalan 2, Jalan 3</p>
-            <p class="penerima">: MR. Yow Hock Thor</p>
-            <p class="penerima">: -</p>
-            <p class="penerima">: -</p>
-        </div>
-        <div class="grid-item grid-center-right-container">
-            <div class="grid-center">
-                <p class="qtoNo">NO</p>
-                <p class="qtoNo">DATE</p>
-                <p class="qtoNo">PAYMENT</p>
-                <p class="qtoNo">VALIDITY</p>
-                <p class="qtoNo">DELIVERY</p>
-                <p class="qtoNo">WARRANTY</p>
-            </div>
-            <div class="grid-right">
-                <p class="qtoNo">: NO</p>
-                <p class="qtoNo">: DATE</p>
-                <p class="qtoNo">: PAYMENT</p>
-                <p class="qtoNo">: VALIDITY</p>
-                <p class="qtoNo">: DELIVERY</p>
-                <p class="qtoNo">: WARRANTY</p>
-            </div>
-        </div>
-    </div> -->
+    <H3 class="quotationTitle">Delivery Order</H3>
 
     <table>
         <tr style="width: 100%;">
-            <td style="width: 10%; border:none;">
-                <strong>Bill To</strong>
+            <td style="width: 10%; border: none;">
+                To
                 <br>
                 <br>
+                Ship To<br>
                 <br>
                 <br>
+                Attn
                 <br>
-                <strong>Ship To</strong> <br>
+                CC
                 <br>
+                Telp
                 <br>
-                <br>
+                Fax
             </td>
-            <td style="width: 53%; border-left:none; border:none;">
-                : {{ $inv->quotation->perusahaan->nama }} <br>
-                &nbsp;&nbsp;{{ $inv->quotation->perusahaan->provinsi }}, {{ $inv->quotation->perusahaan->kota }},<br>
-                <br>
-                <br>
-                <br>
-                : {{ $inv->quotation->perusahaan->nama }}<br>
-                &nbsp;&nbsp;{{ $inv->quotation->perusahaan->jalan1 }} <br>
-                &nbsp;&nbsp;{{ $inv->quotation->perusahaan->jalan2 }} <br>
-                &nbsp;&nbsp;{{ $inv->quotation->perusahaan->jalan3 }}
-            </td>
+            <td style="width: 44%;  border: none;">:
+                {{ $do->invoice->quotation->perusahaan->c_nama }} <br>
+                &nbsp;&nbsp;{{ $do->invoice->quotation->perusahaan->c_alamat }} <br>
 
-            <td style="width: 18%; border-top: 2px solid black; border-bottom: 2px solid black; border-right: none;">
-                DATE <br><br>
-                P.O.No <br><br>
-                D.O. No <br><br>
-                Terms Of Payment <br><br>
-            </td>
-            @php
-            // Hitung jarak antara tglInvoice dan payment_due
-                $tglInvoice = Carbon\Carbon::parse($inv->tglInvoice);
-                $paymentDue = Carbon\Carbon::parse($inv->payment_due);
-                $jarakHari = $tglInvoice->diffInDays($paymentDue);
-            @endphp
-            <td style="width: 19%;border-top: 2px solid black; border-bottom: 2px solid black; border-left: none;">
-                : {{ Carbon\Carbon::parse($inv->tglInvoice)->format('d M Y') }} <br>
+                : {{ $do->invoice->quotation->perusahaan->nama }} <br>
+                &nbsp;&nbsp;{{ $do->invoice->quotation->perusahaan->alamat }} <br>
+                &nbsp;&nbsp;{{ $do->invoice->quotation->perusahaan->jalan1 }}, {{ $do->invoice->quotation->perusahaan->kodePos }},{{ $do->invoice->quotation->perusahaan->kota }} <br>
 
-                : {{ $inv->quotation->purchaseNo }} <br><br>
-                : {{ $inv->quotation->quotationNo }} <br><br>
-                : {{ $jarakHari }} Days<br><br>
+                : {{ $do->invoice->quotation->perusahaan->pic1 }}/{{ $do->invoice->quotation->perusahaan->pic2 }} <br>
+                : {{ $do->invoice->quotation->perusahaan->pic3 }}/{{ $do->invoice->quotation->perusahaan->pic4 }} <br>
+                : 778465050 <br>
+                : -
+            </td>
+            <td style="width: 10%; border-right: none">
+            <strong>
+                No <br><br>
+                Date <br><br>
+                PO/NO <br><br>
+                Ordered BY <br><br>
+                <br>
+            </strong>
+            </td>
+            <td style="width: 36%; border-left: none">
+            <strong>
+                : {{ $do->deliveryNo }} <br><br>
+                : {{ $do->tglDelivery }} <br><br>
+                : {{ $do->invoice->quotation->purchaseNo }} <br><br>
+                : DO2212122 <br><br>
+                <br>
+            </strong>
             </td>
         </tr>
 
     </table>
 
-    <div class="textPembuka">
-        <p class="kalimatPembuka">Dear Sir / Madam,</p>
-        <p class="kalimatPembuka">We are pleaset to quote you as follows,</p>
-    </div>
+    <div style="margin-top: 1cm">
 
+    </div>
     <table>
-        <thead>
+        <thead style="background-color: #bfbfbf;">
             <tr>
                 <th style="width: 2%;">NO</th>
                 <th style="width: 45%;">DESCRIPTION</th>
-                <th style="width: 15%;">UNIT PRICE</th>
-                <th style="width: 10%;">QTY</th>
-                <th style="width: 25%;">AMOUNT</th>
+                <th style="width: 20%;">QTY</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($inv->quotation->produk as $data)
-            <?php
-            $totalHarga = 0;
-            $totalHarga += $data->pivot->harga * $data->pivot->quantity;
-            ?>
+            @foreach ($do->invoice->quotation->produk as $data)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $data->namaProduk }}</td>
-                <td>@currency($data->pivot->harga) </td>
+                <td style="text-align: left;">{{ $data->namaProduk }}</td>
                 <td style="text-align: center;">{{ $data->pivot->quantity }}</td>
-                <td style="text-align: right;">@currency($data->pivot->harga * $data->pivot->quantity)</td>
             </tr>
             @endforeach
             <tr>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td style="text-align: center;"></td>
-                <td style="text-align: center;"></td>
+            </tr><tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr><tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr><tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr><tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr><tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr><tr>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td style="text-align: center;"></td>
-                <td style="text-align: center;"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td style="text-align: center;"></td>
-                <td style="text-align: center;"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td style="text-align: center;"></td>
-                <td style="text-align: center;"></td>
-            </tr>
-
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td style="text-align: center;"></td>
-                <td style="text-align: center;"></td>
-            </tr>
-            <tr>
-                <td colspan="3" style="text-align: center; border-left:none; border-bottom: none;"></td>
-                <td style="text-align: left; border-right: none;">Total</td>
-                <td style="text-align: center; border-left: none;">: @currency($totalHarga)</td>
-            </tr>
-            <tr>
-                <td colspan="3" style="text-align: center; border-left:none; border-bottom: none; border-top:none;">
-                </td>
-                <td style="text-align: left; border-right: none;">Disc</td>
-                <td style="text-align: center; border-left: none;">-</td>
-            </tr>
-            <tr>
-                <td colspan="3" style="text-align: center; border-left:none; border-bottom: none; border-top:none;">
-                </td>
-                <td style="text-align: left; border-right: none">DP</td>
-                <td style="text-align: center; border-left: none">-</td>
-            </tr>
-            <tr>
-                <td colspan="3" style="text-align: center; border-left:none; border-bottom: none; border-top:none;">
-                </td>
-                <td style="text-align: left; border-right: none">Sub Total</td>
-                <td style="text-align: center; border-left: none">: @currency($totalHarga)</td>
-            </tr>
-        <tfoot>
-            <tr></tr>
-        </tfoot>
         </tbody>
 
     </table>
@@ -404,6 +342,7 @@
                 <br>
                 <br>
                 <p class="kalimatPembuka">(................................)</p>
+                <p class="kalimatPembuka2">Signature</p>
             </td>
             <td style="text-align: center; border: none;">
                 <p style="font-size: 12px;" class="kalimatPembuka"><strong>CV. GABRIL MITRA PERKASA</strong></p>
@@ -414,12 +353,15 @@
                 <br>
                 <br>
                 <p class="kalimatPembuka">(................................)</p>
+                <p class="kalimatPembuka2">Authorized Signature</p>
             </td>
         </tr>
     </table>
 
+    <script>
+        window.addEventListener("load", window.print());
+    </script>
+
 </body>
-<script>
-    window.addEventListener("load", window.print());
-</script>
+
 </html>

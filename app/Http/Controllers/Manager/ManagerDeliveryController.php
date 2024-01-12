@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Manager;
 
+use App\Models\Cv;
 use Carbon\Carbon;
 use App\Models\Invoice;
 use App\Models\Delivery;
@@ -133,6 +134,20 @@ class ManagerDeliveryController extends Controller
         return view('manager.delivery.archive.archiveYear',[
             'deliveries' => $deliveryYears,
             'year' => $year,
+        ]);
+    }
+
+    public function viewDelivery(Delivery $id){
+        return view('manager.delivery.view',[
+            'do' => $id,
+            'cv' => Cv::first(),
+        ]);
+    }
+
+    public function print($id){
+        return view('manager.delivery.print',[
+            'do' => Delivery::findOrFail($id),
+            'cv' => Cv::first(),
         ]);
     }
 }

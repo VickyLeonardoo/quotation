@@ -264,9 +264,11 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/delivery-draft/{id}/edit', 'edit')->name('manager.delivery.draft.edit');
                 Route::post('/delivery-draft/{id}/edit', 'update')->name('manager.delivery.draft.update');
                 Route::get('/deliver-draft/{id}/delete', 'destroy')->name('manager.delivery.draft.delete');
-
+                Route::get('/deliver/{id}/view', 'viewDelivery')->name('manager.delivery.view');
                 Route::get('/delivery/archive', 'deliveryArchive')->name('manager.delivery.archive');
                 Route::get('/delivery/archive/{year}', 'yearArchive')->name('manager.delivery.archive.year');
+                Route::get('/delivery/{id}/print', 'print')->name('manager.delivery.print');
+
             });
         });
     });

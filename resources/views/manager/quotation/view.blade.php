@@ -16,7 +16,7 @@
                     Approve
                 </a>
                 @endif
-                <a href="{{ route('manager.quotation.print',$qto->id) }}" class="btn btn-primary ml-2">
+                <a href="{{ route('manager.quotation.print',$qto->id) }}" target="new" class="btn btn-primary ml-2">
                    <i class="fas fa-print"></i> Print
                 </a>
 
