@@ -45,7 +45,7 @@ class DeliveryController extends Controller
         $deliveryNo = "DO/{$deliveryId}/{$currentMonth}/{$currentYear}";
 
         return view('admin.delivery.create',[
-            'invoices' => Invoice::where('status',['3','4'])->where('is_archive',false)->get(),
+            'invoices' => Invoice::whereIn('status',['3','4'])->where('is_archive',false)->get(),
             'deliveryNo' => $deliveryNo,
         ]);
     }

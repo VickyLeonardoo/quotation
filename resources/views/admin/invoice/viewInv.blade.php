@@ -46,6 +46,10 @@
                                             Pending
                                         @elseif ($inv->status == 2)
                                             Approved
+                                        @elseif ($inv->status == 3)
+                                            Accepted
+                                        @elseif ($inv->status == 4)
+                                            Selesai
                                         @elseif ($inv->status == 5)
                                             Ditolak
                                         @endif
