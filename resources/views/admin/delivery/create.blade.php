@@ -1,6 +1,6 @@
 @extends('partials.admin.header')
 
-@section('title', 'Tambah Invoice')
+@section('title', 'Tambah Delivery')
 
 @section('content')
     <div class="row">
