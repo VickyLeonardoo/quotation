@@ -17,7 +17,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Kode</th>
+                                    <th>Invoice No</th>
                                     <th>Nama</th>
                                     <th>Tanggal</th>
                                     <th>#</th>
@@ -27,7 +27,7 @@
                                 @foreach ($invoices as $inv)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $inv->quotation->quotationNo }}</td>
+                                    <td>{{ $inv->invoiceNo }}</td>
                                     <td>{{ $inv->quotation->perusahaan->nama }}</td>
                                     <td>{{ Carbon\Carbon::parse($inv->quotation->tglQuotation)->format('d-M-Y') }}</td>
                                     <td>

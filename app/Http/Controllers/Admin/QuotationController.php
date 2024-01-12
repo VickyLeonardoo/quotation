@@ -348,7 +348,7 @@ class QuotationController extends Controller
         }
 
         if ($request["mulai"] && $request["akhir"]) {
-            $quotationsYear = Quotation::whereBetween('tglQuotation', [$request["mulai"], $request["akhir"]])->get();
+            $quotationsYear = Quotation::whereBetween('tglQuotation', [$request["mulai"], $request["akhir"]])->where('is_archive','1')->get();
         }
         return view('admin.quotation.archive.archiveYear',[
             'quotations' => $quotationsYear,

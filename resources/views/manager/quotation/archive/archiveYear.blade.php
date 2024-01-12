@@ -15,7 +15,7 @@
         @endif
         <div class="card full-height">
             <div class="card-body">
-                <form action="{{ url('/admin/quotation/archive/'.$year) }}">
+                <form action="{{ url('/manager/quotation/archive/'.$year) }}">
                     @csrf
                     <span>Filter Tanggal</span><br><br>
                     <div class="form-row">
@@ -61,7 +61,7 @@
                                 <td>{{ $qto->perusahaan->nama }}</td>
                                 <td>{{ Carbon\Carbon::parse($qto->tglQuotation)->format('d-M-Y') }}</td>
                                 <td>
-                                    <a href="{{ route('admin.quotation.view',$qto->id) }}" title="Quotation" class="btn btn-info"><i class="fas fa-file-invoice"></i></a>
+                                    <a href="{{ route('manager.quotation.view',$qto->id) }}" title="Quotation" class="btn btn-info"><i class="fas fa-file-invoice"></i></a>
                                 </td>
                             </tr>
                             @endforeach

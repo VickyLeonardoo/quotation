@@ -15,7 +15,7 @@
         @endif
         <div class="card full-height">
             <div class="card-body">
-                <form action="{{ url('/manager/quotation/archive/'.$year) }}">
+                <form action="{{ url('/manager/project/archive/'.$year) }}">
                     @csrf
                     <span>Filter Tanggal</span><br><br>
                     <div class="form-row">

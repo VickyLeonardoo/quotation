@@ -15,7 +15,7 @@
         @endif
         <div class="card full-height">
             <div class="card-body">
-                <form action="{{ url('/admin/invoice/archive/'.$year) }}">
+                <form action="{{ url('/manager/invoice/archive/'.$year) }}">
                     @csrf
                     <span>Filter Tanggal</span><br><br>
                     <div class="form-row">
@@ -63,7 +63,7 @@
                                 <td>{{ $inv->quotation->perusahaan->nama }}</td>
                                 <td>{{ Carbon\Carbon::parse($inv->tglQuotation)->format('d-M-Y') }}</td>
                                 <td>
-                                    <a href="{{ route('admin.invoice.view',$inv->id) }}" title="Quotation" class="btn btn-info"><i class="fas fa-file-invoice"></i></a>
+                                    <a href="{{ route('manager.invoice.view',$inv->id) }}" title="Quotation" class="btn btn-info"><i class="fas fa-file-invoice"></i></a>
                                 </td>
                             </tr>
                             @endforeach

@@ -74,7 +74,7 @@ class ManagerProjectController extends Controller
         }
 
         if ($request["mulai"] && $request["akhir"]) {
-            $projectYears = Project::whereBetween('tglMulai', [$request["mulai"], $request["akhir"]])->get();
+            $projectYears = Project::whereBetween('tglMulai', [$request["mulai"], $request["akhir"]])->where('is_archive','1')->get();
         }
         return view('manager.project.archive.archiveYear',[
             'projects' => $projectYears,

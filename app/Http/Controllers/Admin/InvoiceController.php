@@ -207,6 +207,7 @@ class InvoiceController extends Controller
     }
 
     public function yearArchive(Request $request, $year){
+        return 'ee';
         $invoiceYears = Invoice::whereYear('tglInvoice', $year)->where('is_archive','1')->get();
 
         if($request["mulai"] == null) {
@@ -218,7 +219,7 @@ class InvoiceController extends Controller
         }
 
         if ($request["mulai"] && $request["akhir"]) {
-            $invoiceYears = Invoice::whereBetween('tglInvoice', [$request["mulai"], $request["akhir"]])->get();
+            $invoiceYears = Invoice::whereBetween('tglInvoice', [$request["mulai"], $request["akhir"]])->where('is_archive','1')->get();
         }
         return view('admin.invoice.archive.archiveYear',[
             'invoices' => $invoiceYears,

@@ -89,7 +89,7 @@ class ManagerInvoiceController extends Controller
         }
 
         if ($request["mulai"] && $request["akhir"]) {
-            $invoiceYears = Invoice::whereBetween('tglInvoice', [$request["mulai"], $request["akhir"]])->get();
+            $invoiceYears = Invoice::whereBetween('tglInvoice', [$request["mulai"], $request["akhir"]])->where('is_archive','1')->get();
         }
         return view('manager.invoice.archive.archiveYear',[
             'invoices' => $invoiceYears,
