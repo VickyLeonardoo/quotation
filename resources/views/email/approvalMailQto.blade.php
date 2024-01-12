@@ -7,7 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-<h5>Direktur, ada Quotation yang butuh untuk di approve!</h5><br>
-Quotation NO: <strong>{{ $qto->quotationNo }}</strong>
+    <h5>Direktur, ada Quotation yang butuh untuk di approve!</h5><br>
+    Quotation NO: <strong>{{ $qto->quotationNo }}</strong>
+    <br>
+    <a href="{{ url('manager/quotation/'.$qto->id.'/view') }}">CEK</a>
 </body>
 </html>

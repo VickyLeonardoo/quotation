@@ -9,5 +9,6 @@
 <body>
 <h5>Direktur, ada Quotation yang butuh untuk di approve!</h5><br>
 Quotation NO: <strong>{{ $inv->invoiceNo }}</strong>
+<a href="{{ url('manager/invoice/'.$inv->id.'/view') }}">CEK</a>
 </body>
 </html>
