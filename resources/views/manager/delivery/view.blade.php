@@ -1,4 +1,4 @@
-@extends('partials.admin.header')
+@extends('partials.manager.header')
 @section('title','View Delivery Order')
 @section('content')
 <div class="row">

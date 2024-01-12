@@ -1,11 +1,11 @@
-@extends('partials.admin.header')
+@extends('partials.manager.header')
 @section('title', 'Dashboard')
 @section('content')
     <div class="row">
         @foreach ($years as $year)
             <div class="col-sm-6 col-md-3">
                 <div class="card card-stats card-round">
-                    <a href="{{ url('admin/invoice/archive/' . $year->year) }}">
+                    <a href="{{ url('manager/invoice/archive/' . $year->year) }}">
                         <div class="card-body ">
                             <div class="row">
                                 <div class="col-5">

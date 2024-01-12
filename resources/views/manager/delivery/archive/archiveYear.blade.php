@@ -1,4 +1,4 @@
-@extends('partials.admin.header')
+@extends('partials.manager.header')
 
 @section('title', ' Archive '.$year)
 

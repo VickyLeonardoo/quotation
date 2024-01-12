@@ -76,11 +76,11 @@
 								Delivery Order
 							</a>
 						</li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
 							<a class="nav-link" href="#">
 								Archive
 							</a>
-						</li>
+						</li> --}}
 					</ul>
 				</nav>
 				<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
