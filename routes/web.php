@@ -151,6 +151,10 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/project-ongoing/{id}/delete', 'destroy')->name('admin.project.ongoing.delete');
                 Route::get('/project-ongoing/create', 'create')->name('admin.project.ongoing.create');
                 Route::post('/project-ongoing/create', 'store')->name('admin.project.ongoing.store');
+
+                Route::get('/project/{id}/unarchive', 'unarchiveProject')->name('admin.project.unarchive');
+                Route::get('/project/archive', 'projectArchive')->name('admin.project.archive');
+                Route::get('/project/archive/{year}', 'yearArchive')->name('admin.project.archive.year');
             });
 
             Route::controller(DeliveryController::class)->group(function () {
@@ -252,6 +256,8 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::post('/project-ongoing/{id}/update', 'update')->name('manager.project.ongoing.update');
                 Route::get('/project-done', 'showDone')->name('manager.project.done');
                 Route::get('/project-done/{id}/view', 'editDone')->name('manager.project.done.edit');
+                Route::get('/project/archive', 'projectArchive')->name('manager.project.archive');
+                Route::get('/project/archive/{year}', 'yearArchive')->name('manager.project.archive.year');
                 //Draf Invoice
             });
 

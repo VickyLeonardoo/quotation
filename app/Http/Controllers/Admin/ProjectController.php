@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class ProjectController extends Controller
 {
@@ -82,6 +83,9 @@ class ProjectController extends Controller
         if ($id->status != 1) {
             return redirect()->back()->with('error', 'Project hanya dapat di arsipkan jika sudah selesai');
         }else{
+            if (!$id->tglMulai) {
+                return redirect()->back()->with('error','Isi terlebih dahulu tanggal mulai');
+            }
             $id->update([
                 'is_archive' => true
             ]);
@@ -98,4 +102,40 @@ class ProjectController extends Controller
 
         }
     }
+
+    public function unarchiveProject(Project $id){
+        $id->update([
+            'is_archive' => 0
+        ]);
+        return redirect()->back()->with('success', 'Project berhasil di unarsip');
+    }
+
+    public function projectArchive(){
+        $years = Project::select(DB::raw('DISTINCT YEAR(tglMulai) as year'))
+                        ->orderBy('year', 'desc')
+                        ->where('is_archive','1')
+                        ->paginate(12);
+        return view('admin.project.archive.index', ['years' => $years]);
+    }
+
+    public function yearArchive(Request $request, $year){
+        $projectYears = Project::whereYear('tglMulai', $year)->where('is_archive','1')->get();
+
+        if($request["mulai"] == null) {
+            $request["mulai"] = $request["akhir"];
+        }
+
+        if($request["akhir"] == null) {
+            $request["akhir"] = $request["mulai"];
+        }
+
+        if ($request["mulai"] && $request["akhir"]) {
+            $projectYears = Project::whereBetween('tglMulai', [$request["mulai"], $request["akhir"]])->get();
+        }
+        return view('admin.project.archive.archiveYear',[
+            'projects' => $projectYears,
+            'year' => $year,
+        ]);
+    }
+
 }
