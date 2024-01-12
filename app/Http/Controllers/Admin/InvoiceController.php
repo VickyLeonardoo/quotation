@@ -83,13 +83,16 @@ class InvoiceController extends Controller
     }
 
     public function edit(Invoice $id){
+        if ($id->status != 0) {
+            return redirect()->back()->with('error','Invoice tidak dapat diubah, set menjadi draft terlebih dahulu');
+        }
         return view('admin.invoice.edit',[
             'quotations' => Quotation::where('is_archive',0)->whereIn('status',['3','4'])->get(),
             'inv' => $id,
         ]);
     }
 
-    public function update(Request $request, Quotation $id){
+    public function update(Request $request, Invoice $id){
         $validatedData = $request->validate([
             'quotation_id' => 'required',
             'invoiceNo' => 'required',
@@ -123,6 +126,14 @@ class InvoiceController extends Controller
             'inv' => Invoice::findOrFail($id),
             'cv' => Cv::first(),
         ]);
+    }
+
+    public function draftInv(Invoice $id){
+        $id->update([
+            'status' => '0'
+        ]);
+
+        return redirect()->route('admin.invoice.draft')->with('success','Invoice berhasil di set menjadi draft');
     }
 
     public function pendingInv(Invoice $id){

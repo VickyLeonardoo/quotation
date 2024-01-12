@@ -209,7 +209,7 @@
         <h5 class="kiri">Nomor HP: 08123456789 | Email: info@perusahaan.com</h5>
     </header>
     <hr>
-    <H3 class="quotationTitle">QUOTATION</H3>
+    <H3 class="quotationTitle">INVOICE</H3>
 
     <!-- <div class="grid-container">
         <div class="grid-item grid-left">

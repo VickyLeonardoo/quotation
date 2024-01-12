@@ -279,8 +279,12 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $data->namaProduk }}</td>
-                <td> - </td>
-                <td style="text-align: center;"> - </td>
+                <td>@if ($data->uom == 'Jasa')
+                    -
+                    @else
+                    {{ $data->brands }} </td>
+                @endif
+                <td style="text-align: center;"> {{ $data->uom }} </td>
                 <td style="text-align: center;">{{ $data->pivot->quantity }}</td>
                 <td style="text-align: center;">@currency($data->pivot->harga)</td>
                 <td style="text-align: right;">@currency($data->pivot->harga * $data->pivot->quantity)</td>
@@ -302,7 +306,7 @@
               <td style="border-bottom: 2px solid black;"></td>
               <td style="border-bottom: 2px solid black;"></td>
               <td colspan="3" style="border-top: 2px solid black; border-bottom: 2px solid black; border-right: none;">TOTAL</td>
-              <td colspan="1" style="text-align: right; border-top: 2px solid black; border-bottom: 2px solid black; border-left: none;">@currency($totalHarga)</td>
+              <td colspan="1" style="text-align: right; border-top: 2px solid black; border-bottom: 2px solid black; border-left: none;">@currency($qto->total)</td>
             </tr>
           </tfoot>
     </table>

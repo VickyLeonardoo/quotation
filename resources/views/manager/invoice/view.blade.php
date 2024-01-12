@@ -15,9 +15,6 @@
                 <a href="{{ route('manager.invoice.set.accepted',$inv->id) }}" class="btn btn-secondary ml-2">
                     Approve
                 </a>
-                <a href="{{ route('manager.invoice.set.reject',$inv->id) }}" class="btn btn-danger ml-2">
-                    Reject
-                </a>
                 @endif
                 <a href="{{ route('manager.invoice.print',$inv->id) }}" target="_blank" class="btn btn-primary ml-2">
                    <i class="fas fa-print"></i> Print
@@ -51,11 +48,14 @@
                         <div class="row">
                             <div class="col-md-4 info-invoice">
                                 <h5 class="sub">Date</h5>
-                                <p>{{ Carbon\Carbon::parse($inv->tglInvoice)->isoFormat('d MMMM Y') }}</p>
+                                <p>{{ Carbon\Carbon::parse($inv->tglInvoice)->isoFormat('D MMMM Y') }}</p>
                             </div>
                             <div class="col-md-4 info-invoice">
                                 <h5 class="sub">Invoice No</h5>
                                 <p>{{ $inv->invoiceNo }}</p>
+                                <h5 class="sub">Payment Due</h5>
+                                <p>{{ Carbon\Carbon::parse($inv->payment_due)->isoFormat('D MMMM Y') }}</p>
+
                             </div>
                             <div class="col-md-4 info-invoice">
                                 <h5 class="sub">Invoice To</h5>
@@ -160,6 +160,41 @@
                 </h5>
             </div>
         </div>
+        <h6 class="page-pretitle">
+            Reject Note
+        </h6>
+        <div class="card">
+            <div class="card-body">
+                @if ($inv->log)
+                    @foreach ($inv->log as $err)
+                    <p style="font-size: 16px;"><strong>Manager:</strong> {{ $err->deskripsi }}</p>
+                    <p class="mt--4 text-right" style="font-size: 10px;"><strong>{{ \Carbon\Carbon::parse($err->created_at)->diffForHumans() }}</strong></p>
+                    <hr>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+
+        @if ($inv->status == 1)
+        <div class="card">
+            <div class="card-header">
+                Reject Quotation
+            </div>
+            <form action="{{ route('manager.invoice.set.reject',$inv->id) }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label for="">Deskripsi: </label>
+                    <textarea name="deskripsi" class="form-control {{ $errors->has('deskripsi') ? 'is-invalid':'' }}" rows="7"></textarea>
+                    @error('deskripsi')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-danger" value="Reject">
+                </div>
+            </form>
+        </div>
+        @endif
     </div>
 </div>
 

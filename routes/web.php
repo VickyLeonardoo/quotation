@@ -126,7 +126,7 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/invoice/{id}/view', 'viewInv')->name('admin.invoice.view');
                 Route::get('/invoice-draft/{id}/pending', 'pendingInv')->name('admin.invoice.set.pending');
                 Route::get('/invoice-draft/{id}/confirm', 'confirmInv')->name('admin.invoice.set.confirm');
-
+                Route::get('/invoice-draft/{id}/draft', 'draftInv')->name('admin.invoice.set.draft');
                 Route::get('/invoice/{id}/print', 'print')->name('admin.invoice.print');
                 Route::get('/invoice-confirmed', 'showConf')->name('admin.invoice.confirmed');
                 Route::get('/invoice-draft/{id}/selesai', 'doneInv')->name('admin.invoice.set.selesai');
@@ -240,7 +240,7 @@ Route::group(['middleware' => ['auth:user']], function () {
                 Route::get('/invoice-draft/{id}/accepted', 'acceptedInv')->name('manager.invoice.set.accepted');
                 Route::get('/invoice/{id}/print', 'print')->name('manager.invoice.print');
                 Route::get('/invoice-confirmed', 'showConf')->name('manager.invoice.confirmed');
-                Route::get('/invoice-draft/{id}/tolak', 'rejectInv')->name('manager.invoice.set.reject');
+                Route::post('/invoice-draft/{id}/tolak', 'rejectInv')->name('manager.invoice.set.reject');
                 Route::get('/invoice/archive', 'invoiceArchive')->name('manager.invoice.archive');
                 Route::get('/invoice/archive/{year}', 'yearArchive')->name('manager.invoice.archive.year');
             });

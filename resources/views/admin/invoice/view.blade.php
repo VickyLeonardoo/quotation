@@ -30,6 +30,10 @@
                 <a href="{{ route('admin.invoice.set.selesai',$inv->id) }}" class="btn btn-success ml-2">
                     Selesai
                 </a>
+                @elseif ($inv->status == 5)
+                <a href="{{ route('admin.invoice.set.draft',$inv->id) }}" class="btn btn-warning ml-2">
+                    Set Draft
+                </a>
                 @endif
                 <a href="{{ route('admin.invoice.print',$inv->id) }}" target="_blank" class="btn btn-primary ml-2">
                    <i class="fas fa-print"></i> Print
@@ -44,7 +48,7 @@
                     <div class="card-header">
                         <div class="invoice-header">
                             <h3 class="invoice-title">
-                                Quotation
+                                Invoice
                             </h3>
                             <div class="invoice-logo">
                                 {{-- <img src="../assets/img/examples/logoinvoice.svg" alt="company logo"> --}}
@@ -63,11 +67,14 @@
                         <div class="row">
                             <div class="col-md-4 info-invoice">
                                 <h5 class="sub">Date</h5>
-                                <p>{{ Carbon\Carbon::parse($inv->tglInvoice)->isoFormat('d MMMM Y') }}</p>
+                                <p>{{ Carbon\Carbon::parse($inv->tglInvoice)->isoFormat('D MMMM Y') }}</p>
+
                             </div>
                             <div class="col-md-4 info-invoice">
                                 <h5 class="sub">Invoice No</h5>
                                 <p>{{ $inv->invoiceNo }}</p>
+                                <h5>Payment Due</h5>
+                                <p>{{ Carbon\Carbon::parse($inv->payment_due)->isoFormat('D MMMM Y') }}</p>
                             </div>
                             <div class="col-md-4 info-invoice">
                                 <h5 class="sub">Invoice To</h5>
@@ -119,6 +126,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-sm-7 col-md-5 mb-3 mb-md-0 transfer-to">
@@ -170,6 +178,20 @@
                     <span class="badge badge-success">Selesai</span>
                     @endif
                 </h5>
+            </div>
+        </div>
+        <h6 class="page-pretitle">
+            Reject Note
+        </h6>
+        <div class="card">
+            <div class="card-body">
+                @if ($inv->log)
+                    @foreach ($inv->log as $err)
+                    <p style="font-size: 16px;"><strong>Manager:</strong> {{ $err->deskripsi }}</p>
+                    <p class="mt--4 text-right" style="font-size: 10px;"><strong>{{ \Carbon\Carbon::parse($err->created_at)->diffForHumans() }}</strong></p>
+                    <hr>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
