@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="flaticon-chart-pie text-warning"></i>
+                                <i class="fas fa-file-contract text-warning"></i>
                             </div>
                         </div>
                         <div class="col-7 col-stats">
@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="flaticon-coins text-success"></i>
+                                <i class="fas fa-file-contract text-success"></i>
                             </div>
                         </div>
                         <div class="col-7 col-stats">
@@ -46,7 +46,7 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="flaticon-error text-danger"></i>
+                                <i class="fas fa-file-contract text-danger"></i>
                             </div>
                         </div>
                         <div class="col-7 col-stats">
@@ -65,7 +65,7 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="flaticon-twitter text-primary"></i>
+                                <i class="fas fa-file-contract text-primary"></i>
                             </div>
                         </div>
                         <div class="col-7 col-stats">

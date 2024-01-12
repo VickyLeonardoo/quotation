@@ -17,7 +17,6 @@
                 <a href="{{ url('manager/project-ongoing') }}" class="btn btn-info"><i class="fas fa-arrow-left"></i>
                     Kembali</a>
                 @endif
-
             </div>
             <div class="card-category"></div>
         </div>
