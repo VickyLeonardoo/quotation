@@ -225,7 +225,7 @@
             </td>
             <td style="width: 58%; border-left:none; border-right:none;">: {{ $qto->perusahaan->nama }} <br>
                &nbsp;&nbsp;{{ $qto->perusahaan->provinsi }}, {{ $qto->perusahaan->kota }},<br>
-               &nbsp;&nbsp;{{ $qto->perusahaan->jalan1 }}, {{ $qto->perusahaan->jalan2 }}, {{ $qto->perusahaan->jalan3 }}
+               &nbsp;&nbsp;{{ $qto->perusahaan->alamat }}, {{ $qto->perusahaan->jalan1 }}, {{ $qto->perusahaan->jalan2 }}
                 <br>
                  : {{ $qto->perusahaan->pic }}<br>
                  : {{ $qto->perusahaan->noTelp }}<br>

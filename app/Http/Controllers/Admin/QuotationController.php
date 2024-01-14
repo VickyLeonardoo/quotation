@@ -302,7 +302,7 @@ class QuotationController extends Controller
         $dompdf = new Dompdf();
         // $dompdf->set_option('enable_remote', true);
         // $dompdf->set_option('chroot', public_path('assets'));
-        $html = view('email.quotationMail', ['qto' => $qto, 'img' => $image])->render();
+        $html = view('admin.quotation.print', ['qto' => $qto, 'img' => $image])->render();
         $dompdf->loadHtml($html);
         $dompdf->render();
         $output = $dompdf->output();

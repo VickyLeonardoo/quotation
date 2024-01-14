@@ -18,7 +18,7 @@
                 <div class="tab-content mt-2 mb-3" id="pills-tabContent">
                     <div class="tab-pane fade active show" id="pills-home" role="tabpanel"
                         aria-labelledby="pills-home-tab">
-                        <form action="{{ url('manager/profile') }}" method="POST">
+                        <form action="{{ url('admin/profile') }}" method="POST">
                             @csrf
                             <div class="row mt-3">
                                 <div class="col-md-6">

@@ -99,7 +99,7 @@
 
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <form action="{{ url('admin/profile/password') }}" method="POST">
+                    <form action="{{ url('karyawan/profile/password') }}" method="POST">
                         @csrf
                         <div class="row mt-3">
                             <div class="col-md-12">

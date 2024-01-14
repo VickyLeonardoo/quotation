@@ -27,6 +27,7 @@
                                     <th>#</th>
                                     <th>Kode</th>
                                     <th>Nama</th>
+                                    <th>Brands</th>
                                     <th>Harga</th>
                                     <th>#</th>
                                 </tr>
@@ -37,6 +38,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $produk->kodeProduk }}</td>
                                         <td>{{ $produk->namaProduk }}</td>
+                                        <td>{{ $produk->brands }}</td>
                                         <td>@currency($produk->hargaProduk)</td>
                                         <td>
                                             <a href="{{ route('admin.produk.edit', $produk->slug) }}"

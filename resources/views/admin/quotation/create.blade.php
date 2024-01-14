@@ -1,6 +1,6 @@
 @extends('partials.admin.header')
 
-@section('title', 'Tambah Produk')
+@section('title', 'Tambah Quotation')
 
 @section('content')
     <div class="row">

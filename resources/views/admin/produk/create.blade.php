@@ -17,7 +17,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="">Kode Produk*</label>
-                            <input type="text" class="form-control {{ $errors->has('kodeProduk') ? 'is-invalid':'' }}" name="kodeProduk" placeholder="Masukkan Nama Produk" autocomplete="off" value="{{ old('kodeProduk') }}">
+                            <input type="text" class="form-control {{ $errors->has('kodeProduk') ? 'is-invalid':'' }}" name="kodeProduk" placeholder="Masukkan Kode Produk" autocomplete="off" value="{{ old('kodeProduk') }}">
                             @error('kodeProduk')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -47,7 +47,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Harga*</label>
-                            <input type="number" autocomplete="off" class="form-control {{ $errors->has('hargaProduk') ? 'is-invalid':'' }}" name="hargaProduk" placeholder="Masukkan Nama Produk" value="{{ old('hargaProduk') }}">
+                            <input type="number" autocomplete="off" class="form-control {{ $errors->has('hargaProduk') ? 'is-invalid':'' }}" name="hargaProduk" placeholder="Masukkan Harga Produk" value="{{ old('hargaProduk') }}">
                             @error('hargaProduk')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

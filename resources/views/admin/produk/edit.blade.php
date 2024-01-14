@@ -17,7 +17,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="">Kode Produk</label>
-                            <input type="text" class="form-control {{ $errors->has('kodeProduk') }}" name="kodeProduk" value="{{ $produk->kodeProduk }}" placeholder="Masukkan Nama Produk">
+                            <input type="text" class="form-control {{ $errors->has('kodeProduk') }}" name="kodeProduk" value="{{ $produk->kodeProduk }}" placeholder="Masukkan Kode Produk">
                             @error('kodeProduk')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -47,7 +47,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Harga</label>
-                            <input type="number" class="form-control {{ $errors->has('hargaProduk') }}" name="hargaProduk" value="{{ $produk->hargaProduk }}" placeholder="Masukkan Nama Produk">
+                            <input type="number" class="form-control {{ $errors->has('hargaProduk') }}" name="hargaProduk" value="{{ $produk->hargaProduk }}" placeholder="Masukkan Harga Produk">
                             @error('hargaProduk')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
