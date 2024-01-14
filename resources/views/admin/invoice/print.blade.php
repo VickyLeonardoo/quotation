@@ -264,7 +264,7 @@
             </td>
             <td style="width: 53%; border-left:none; border:none;">
                 : {{ $inv->quotation->perusahaan->c_nama }} <br>
-                &nbsp;&nbsp;{{ $inv->quotation->perusahaan->c_alamat }}, {{ $inv->quotation->perusahaan->c_jalan1 }},<br>
+                &nbsp;&nbsp;{{ $inv->quotation->perusahaan->c_alamat }}<br>
                 <br>
                 <br>
                 <br>
