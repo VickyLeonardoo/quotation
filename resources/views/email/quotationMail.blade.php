@@ -2,10 +2,9 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    {{-- <meta charset="UTF-8"> --}}
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice</title>
+    <title>Quotation</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -200,7 +199,6 @@
 </head>
 
 <body>
-    <img src="{{asset ('/gmp.png')}}" alt="Company Logo" id="logo">
     <header>
         <p class="namaPerusahaan">CV. Gabril Mitra Perkasa</p>
         <P class="fixture">JIG & FIXTURE &#8226; FABRICATION &#8226; MECHANICAL &#8226; ELECTRICAL &#8226; GENERAL
@@ -226,7 +224,7 @@
             </td>
             <td style="width: 58%; border-left:none; border-right:none;">: {{ $qto->perusahaan->nama }} <br>
                &nbsp;&nbsp;{{ $qto->perusahaan->provinsi }}, {{ $qto->perusahaan->kota }},<br>
-               &nbsp;&nbsp;{{ $qto->perusahaan->jalan1 }}, {{ $qto->perusahaan->jalan2 }}, {{ $qto->perusahaan->jalan3 }}
+               &nbsp;&nbsp;{{ $qto->perusahaan->alamat }}, {{ $qto->perusahaan->jalan1 }}, {{ $qto->perusahaan->jalan2 }}
                 <br>
                  : {{ $qto->perusahaan->pic }}<br>
                  : {{ $qto->perusahaan->noTelp }}<br>
@@ -236,18 +234,19 @@
             <td style="width: 15%; border-top: 2px solid black; border-bottom: 2px solid black; border-right: none;">
                 NO <br>
                 DATE <br>
-                PAYMENT <br>
-                VALIDITY <br>
-                DELIVERY <br>
                 WARRANTY <br>
+                <br>
+                <br>
+                <br>
             </td>
             <td style="width: 19%;border-top: 2px solid black; border-bottom: 2px solid black; border-left: none;">
                 : {{ $qto->quotationNo }} <br>
                 : {{ $qto->tglQuotation }}<br>
-                : - <br>
-                : - <br>
-                : - <br>
-                : 4 Months <br>
+                : {{ $qto->garansi }} {{ $qto->periode }} <br>
+                <br>
+                <br>
+                <br>
+
             </td>
         </tr>
 
@@ -279,8 +278,12 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $data->namaProduk }}</td>
-                <td> - </td>
-                <td style="text-align: center;"> - </td>
+                <td>@if ($data->uom == 'Jasa')
+                    -
+                    @else
+                    {{ $data->brands }} </td>
+                @endif
+                <td style="text-align: center;"> {{ $data->uom }} </td>
                 <td style="text-align: center;">{{ $data->pivot->quantity }}</td>
                 <td style="text-align: center;">@currency($data->pivot->harga)</td>
                 <td style="text-align: right;">@currency($data->pivot->harga * $data->pivot->quantity)</td>
@@ -302,7 +305,7 @@
               <td style="border-bottom: 2px solid black;"></td>
               <td style="border-bottom: 2px solid black;"></td>
               <td colspan="3" style="border-top: 2px solid black; border-bottom: 2px solid black; border-right: none;">TOTAL</td>
-              <td colspan="1" style="text-align: right; border-top: 2px solid black; border-bottom: 2px solid black; border-left: none;">@currency($totalHarga)</td>
+              <td colspan="1" style="text-align: right; border-top: 2px solid black; border-bottom: 2px solid black; border-left: none;">@currency($qto->total)</td>
             </tr>
           </tfoot>
     </table>
@@ -321,5 +324,7 @@
 
 
 </body>
-
+<script>
+    window.addEventListener("load", window.print());
+</script>
 </html>

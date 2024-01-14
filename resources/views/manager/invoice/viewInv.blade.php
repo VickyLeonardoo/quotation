@@ -8,7 +8,7 @@
             <div class="card full-height">
                 <div class="card-body">
                     <div class="container-fluid">
-                        <a href="{{ url('manager/invoice-draft/create') }}" class="btn btn-info">Tambah</a>
+                        {{-- <a href="{{ url('manager/invoice-draft/create') }}" class="btn btn-info">Tambah</a> --}}
                         <div class="card-category"></div>
                         <h4 class="page-title">Daftar Invoice</h4>
                     </div>
