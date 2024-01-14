@@ -263,8 +263,8 @@
                 <br>
             </td>
             <td style="width: 53%; border-left:none; border:none;">
-                : {{ $inv->quotation->perusahaan->nama }} <br>
-                &nbsp;&nbsp;{{ $inv->quotation->perusahaan->provinsi }}, {{ $inv->quotation->perusahaan->kota }},<br>
+                : {{ $inv->quotation->perusahaan->c_nama }} <br>
+                &nbsp;&nbsp;{{ $inv->quotation->perusahaan->c_alamat }}, {{ $inv->quotation->perusahaan->c_jalan1 }},<br>
                 <br>
                 <br>
                 <br>

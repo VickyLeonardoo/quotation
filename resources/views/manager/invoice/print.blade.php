@@ -263,15 +263,15 @@
                 <br>
             </td>
             <td style="width: 53%; border-left:none; border:none;">
-                : {{ $inv->quotation->perusahaan->nama }} <br>
-                &nbsp;&nbsp;{{ $inv->quotation->perusahaan->provinsi }}, {{ $inv->quotation->perusahaan->kota }},<br>
+                : {{ $inv->quotation->perusahaan->c_nama }} <br>
+                &nbsp;&nbsp;{{ $inv->quotation->perusahaan->c_alamat }}, {{ $inv->quotation->perusahaan->c_jalan1 }},<br>
                 <br>
                 <br>
                 <br>
                 : {{ $inv->quotation->perusahaan->nama }}<br>
+                &nbsp;&nbsp;{{ $inv->quotation->perusahaan->alamat }} <br>
                 &nbsp;&nbsp;{{ $inv->quotation->perusahaan->jalan1 }} <br>
-                &nbsp;&nbsp;{{ $inv->quotation->perusahaan->jalan2 }} <br>
-                &nbsp;&nbsp;{{ $inv->quotation->perusahaan->jalan3 }}
+                &nbsp;&nbsp;{{ $inv->quotation->perusahaan->jalan2 }}
             </td>
 
             <td style="width: 18%; border-top: 2px solid black; border-bottom: 2px solid black; border-right: none;">
@@ -288,7 +288,7 @@
             @endphp
             <td style="width: 19%;border-top: 2px solid black; border-bottom: 2px solid black; border-left: none;">
                 : {{ Carbon\Carbon::parse($inv->tglInvoice)->format('d M Y') }} <br>
-                <br>
+
                 : {{ $inv->quotation->purchaseNo }} <br><br>
                 : {{ $inv->quotation->quotationNo }} <br><br>
                 : {{ $jarakHari }} Days<br><br>
@@ -366,18 +366,6 @@
                 <td colspan="3" style="text-align: center; border-left:none; border-bottom: none;"></td>
                 <td style="text-align: left; border-right: none;">Total</td>
                 <td style="text-align: center; border-left: none;">: @currency($totalHarga)</td>
-            </tr>
-            <tr>
-                <td colspan="3" style="text-align: center; border-left:none; border-bottom: none; border-top:none;">
-                </td>
-                <td style="text-align: left; border-right: none;">Disc</td>
-                <td style="text-align: center; border-left: none;">-</td>
-            </tr>
-            <tr>
-                <td colspan="3" style="text-align: center; border-left:none; border-bottom: none; border-top:none;">
-                </td>
-                <td style="text-align: left; border-right: none">DP</td>
-                <td style="text-align: center; border-left: none">-</td>
             </tr>
             <tr>
                 <td colspan="3" style="text-align: center; border-left:none; border-bottom: none; border-top:none;">

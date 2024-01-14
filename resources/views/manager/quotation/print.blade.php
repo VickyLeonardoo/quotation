@@ -199,7 +199,7 @@
 </head>
 
 <body>
-    <img src="{{asset ('assets/gmp.png')}}" alt="Company Logo" id="logo">
+    <img src="{{asset ('assets/gmp.png')}}" alt="" id="logo">
     <header>
         <p class="namaPerusahaan">CV. Gabril Mitra Perkasa</p>
         <P class="fixture">JIG & FIXTURE &#8226; FABRICATION &#8226; MECHANICAL &#8226; ELECTRICAL &#8226; GENERAL
@@ -218,14 +218,13 @@
                 <strong>To</strong>
                 <br>
                 <br>
-                <br>
                 <strong>Attn</strong> <br>
                 <strong>Phone</strong> <br>
                 <strong>Fax</strong> <br>
             </td>
-            <td style="width: 58%; border-left:none; border-right:none;">: {{ $qto->perusahaan->nama }} <br>
-               &nbsp;&nbsp;{{ $qto->perusahaan->provinsi }}, {{ $qto->perusahaan->kota }},<br>
-               &nbsp;&nbsp;{{ $qto->perusahaan->jalan1 }}, {{ $qto->perusahaan->jalan2 }}, {{ $qto->perusahaan->jalan3 }}
+            <td style="width: 58%; border-left:none; border-right:none;">: {{ $qto->perusahaan->c_nama }} <br>
+               {{-- &nbsp;&nbsp;{{ $qto->perusahaan->provinsi }}, {{ $qto->perusahaan->kota }},<br> --}}
+               &nbsp;&nbsp;{{ $qto->perusahaan->c_alamat }}, {{ $qto->perusahaan->c_jalan1 }}, {{ $qto->perusahaan->c_jalan2 }}
                 <br>
                  : {{ $qto->perusahaan->pic }}<br>
                  : {{ $qto->perusahaan->noTelp }}<br>

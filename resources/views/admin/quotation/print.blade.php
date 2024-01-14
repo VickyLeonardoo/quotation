@@ -218,14 +218,13 @@
                 <strong>To</strong>
                 <br>
                 <br>
-                <br>
                 <strong>Attn</strong> <br>
                 <strong>Phone</strong> <br>
                 <strong>Fax</strong> <br>
             </td>
-            <td style="width: 58%; border-left:none; border-right:none;">: {{ $qto->perusahaan->nama }} <br>
-               &nbsp;&nbsp;{{ $qto->perusahaan->provinsi }}, {{ $qto->perusahaan->kota }},<br>
-               &nbsp;&nbsp;{{ $qto->perusahaan->alamat }}, {{ $qto->perusahaan->jalan1 }}, {{ $qto->perusahaan->jalan2 }}
+            <td style="width: 58%; border-left:none; border-right:none;">: {{ $qto->perusahaan->c_nama }} <br>
+               {{-- &nbsp;&nbsp;{{ $qto->perusahaan->provinsi }}, {{ $qto->perusahaan->kota }},<br> --}}
+               &nbsp;&nbsp;{{ $qto->perusahaan->c_alamat }}, {{ $qto->perusahaan->c_jalan1 }}, {{ $qto->perusahaan->c_jalan2 }}
                 <br>
                  : {{ $qto->perusahaan->pic }}<br>
                  : {{ $qto->perusahaan->noTelp }}<br>
