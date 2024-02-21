@@ -306,6 +306,7 @@ class QuotationController extends Controller
         $dompdf->loadHtml($html);
         $dompdf->render();
         $output = $dompdf->output();
+
         // Save PDF to temporary file
         $pdfPath = public_path('QuotationMitra.pdf');
         file_put_contents($pdfPath, $output);
